@@ -2,7 +2,7 @@
 ![Badge](https://img.shields.io/github/issues/onathanmiranda/cofrinho)
 ![Badge](https://img.shields.io/github/forks/onathanmiranda/cofrinho)
 ![Badge](https://img.shields.io/github/stars/onathanmiranda/cofrinho)
-![Badge](https://img.shields.io/github/license/onathanmiranda/cofrinho)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Badge](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fonathanmiranda%2Fcofrinho)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
