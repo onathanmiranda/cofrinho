@@ -30,31 +30,26 @@ const slice = createSlice({
         [ getUser.fulfilled ]: ( state, action ) => {
             state.requesting = false 
             state.data = action.payload
-            console.log( action.payload )
         },
         [ getUser.pending ]: ( state, action ) => { 
             state.requesting = true 
-            console.log( action.payload )
         },
         [ getUser.rejected ]: ( state, action ) => { 
             state.requesting = false
-            console.log( action.payload )
         },
         [ postUser.fulfilled ]: ( state, action ) => {
             state.requesting = false
             state.data = action.payload
-            console.log( action.payload )
         },
         [ postUser.pending ]: ( state, action ) => { 
             state.requesting = true 
-            console.log( action.payload )
         },
         [ postUser.rejected ]: ( state, action ) => { 
             state.requesting = false
-            console.log( action.payload )
         },
   }
 })
 
 export { getUser, postUser }
+
 export const { reducer } = slice

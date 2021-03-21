@@ -1,13 +1,15 @@
 export default class Account {
-    constructor({ title, quota, id }){   
+    constructor({ title, quota, id, createdAt }){   
 
         let obj = {
             title,
             quota,
-            id
+            id,
+            createdAt
         }
 
         if(!id) delete obj.id
+        if(!createdAt) obj.createdAt = new Date().getTime()
         
         return obj
     }

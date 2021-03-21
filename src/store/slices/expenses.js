@@ -4,12 +4,13 @@ import Cofrinho from '../../apis/cofrinho'
 const name = "expenses"
 
 const initialState = {
-    items: []
+    items: [],
+    requesting: false
 }
 
 const getExpenses = createAsyncThunk(`${name}/getExpenses`, 
   (payload, thunkAPI) => {
-    return Cofrinho.expenses.getAll().then((data) => {
+    return Cofrinho.expenses.getAllBy().then((data) => {
       return data
     }).catch((e) => {
       console.log(e)
@@ -22,6 +23,19 @@ const slice = createSlice({
   name,
   initialState,
   reducers: {},
+  extraReducers: {
+    [getExpenses.fulfilled]: (state, action) => {
+      state.requesting = false
+      state.items = action.payload
+    },
+    [getExpenses.pending]: (state, action) => {
+      state.requesting = true
+    },
+    [getExpenses.rejected]: (state, action) => {
+      state.requesting = false
+      console.log(action.error.message)
+    }
+  }
 })
 
 export { getExpenses }

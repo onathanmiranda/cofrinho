@@ -31,16 +31,17 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => {
 
     const is_loading  = props.user.requesting
     const is_new_user = !is_loading && !props.user.data
+    const is_old_user = !is_loading && props.user.data
     
     return (
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact>
                     {is_loading   && <Loading />}
-                    {!is_new_user && <Redirect to="/overview" />}
                     {is_new_user  && <Redirect to="/setup" />}
+                    {is_old_user  && <Redirect to="/overview" />}
                 </Route>
-                <Route path="/setup" exact component={Setup} />
+                <Route path="/setup"    exact component={Setup} />
                 <Route path="/overview" exact component={Overview} />
             </Switch>
         </BrowserRouter>

@@ -1,14 +1,15 @@
 export default class Earning {
-    constructor({ title, amount, id, date }){
+    constructor({ title, amount, id, createdAt }){
 
         let obj = {
             title,
             amount,
             id,
-            date
+            createdAt
         }
 
         if(!id) delete obj.id
+        if(!createdAt) obj.createdAt = new Date().getTime()
         
         return obj
     }

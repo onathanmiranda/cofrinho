@@ -14,18 +14,21 @@ const collectionsDefaultConfigs = {
 const collections = [
     { 
         name: "accounts", 
-        config: { ...collectionsDefaultConfigs }
+        config: { ...collectionsDefaultConfigs },
+        indexes: ["createdAt"]
     },
     {
         name: "earnings",
-        config: { ...collectionsDefaultConfigs }
+        config: { ...collectionsDefaultConfigs },
+        indexes: ["createdAt"]
     },
     {
         name: "expenses",
-        config: { ...collectionsDefaultConfigs }
+        config: { ...collectionsDefaultConfigs },
+        indexes: ["createdAt"]
     },
     { 
-        name: "user", 
+        name: "user",
         config: { ...collectionsDefaultConfigs }
     }
 ]
@@ -37,9 +40,10 @@ class Cofrinho {
             //The upgrade callback is the only place where you can create and delete stores.
             upgrade(db){
                 collections.forEach(collection => {
-                    db.createObjectStore(collection.name, collection.config)
-                    //const store = db.createObjectStore(collection.name, collection.config)
-                    //store.createIndex('strengthIndex', 'strength');
+                    let store = db.createObjectStore(collection.name, collection.config)
+                    //if has index, creates index on store
+                    if(collection.indexes)
+                        collection.indexes.forEach(index => store.createIndex(`${index}_index`, index))
                 })
             },
             blocked: () => {
@@ -64,7 +68,7 @@ class Cofrinho {
                 return this.database.then(database => database.count())
             }
 
-            // get all keys
+            // retrieve all keys
             this[collection.name].getAllKeys = () => {
                 return this.database.then(database => database.getAllKeys(collection.name))
             }
@@ -94,6 +98,58 @@ class Cofrinho {
                 return this.database.then(database => database.delete(collection.name, value))
             }
 
+            //create get methods for each existing index
+            if(collection.indexes){
+                collection.indexes.forEach((index) => {
+                    
+                    const capitalizedIndex = index.replace(/^\w/, (c) => c.toUpperCase())
+                    
+                    //get all items from index's value
+                    this[collection.name][`getAllBy${capitalizedIndex}`] = (value) => {
+                        return this.database.then(database => {
+                            return database.getAllFromIndex(`${index}_index`, index, value)
+                        })
+                    }
+                    
+                    //get first item from index's value
+                    this[collection.name][`getBy${capitalizedIndex}`] = (value) => {
+                        return this.database.then(database => {
+                            return database.getFromIndex(`${index}_index`, index, value)
+                        })
+                    }
+
+                    //get all items from index's range of values
+                    this[collection.name][`getAllBy${capitalizedIndex}Range`] = (smaller, bigger) => {
+                        return this.database.then(database => {
+
+                            let value = window.IDBKeyRange.bound(smaller, bigger)
+                            
+                            return database.getAllFromIndex(`${index}_index`, index, value)
+                        })
+                    }
+
+                    //get all items from index's value and above
+                    this[collection.name][`getAllBy${capitalizedIndex}SmallerBound`] = (value) => {
+                        return this.database.then(database => {
+
+                            value = window.IDBKeyRange.smallerBound(value)
+                            
+                            return database.getAllFromIndex(`${index}_index`, index, value)
+                        })
+                    }
+
+                    //get all items from index's value and below
+                    this[collection.name][`getAllBy${capitalizedIndex}BiggerBound`] = (value) => {
+                        return this.database.then(database => {
+
+                            value = window.IDBKeyRange.biggerBound(value)
+                            
+                            return database.getAllFromIndex(`${index}_index`, index, value)
+                        })
+                    }
+                })
+            }
+
             //example retrieve by index
             //  database.getAllFromIndex(shadowCollection, index, value);
             //  database.getFromIndex(shadowCollection, index, value);
@@ -101,9 +157,9 @@ class Cofrinho {
             //example retrive by range 
             //Whenever you call .get() or .getAll() with idb, you can always substitute the key with a range, whether that's a primary key or index key. IDBKeyRange is a Browser Native API
 
-            //  const strongRange = IDBKeyRange.lowerBound(8);
+            //  const strongRange = IDBKeyRange.smallerBound(8);
             //  const midRange = IDBKeyRange.bound(3, 7);
-            //  const weakRange = IDBKeyRange.upperBound(2);
+            //  const weakRange = IDBKeyRange.biggerBound(2);
             //  let [strongCats, ordinaryCats, weakCats] = [
                 //  await db3.getAllFromIndex('moreCats', 'strengthIndex', strongRange),
                 //  await db3.getAllFromIndex('moreCats', 'strengthIndex', midRange),
