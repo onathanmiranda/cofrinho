@@ -121,10 +121,10 @@ class Cofrinho {
                     //get all items from index's range of values
                     this[collection.name][`getAllBy${capitalizedIndex}Range`] = (smaller, bigger) => {
                         return this.database.then(database => {
-
+                            
                             let value = window.IDBKeyRange.bound(smaller, bigger)
                             
-                            return database.getAllFromIndex(`${index}_index`, index, value)
+                            return database.getAllFromIndex(collection.name, `${index}_index`, value)
                         })
                     }
 
@@ -134,7 +134,7 @@ class Cofrinho {
 
                             value = window.IDBKeyRange.smallerBound(value)
                             
-                            return database.getAllFromIndex(`${index}_index`, index, value)
+                            return database.getAllFromIndex(collection.name, `${index}_index`, value)
                         })
                     }
 
@@ -144,7 +144,7 @@ class Cofrinho {
 
                             value = window.IDBKeyRange.biggerBound(value)
                             
-                            return database.getAllFromIndex(`${index}_index`, index, value)
+                            return database.getAllFromIndex(collection.name, `${index}_index`, value)
                         })
                     }
                 })

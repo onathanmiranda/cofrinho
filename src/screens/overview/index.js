@@ -1,6 +1,8 @@
 import { connect } from 'react-redux'
 
 import TotalSpent from '../../components/atoms/balance-total-spent'
+import TotalEarned from '../../components/atoms/balance-total-earned'
+import FormatPercent from '../../components/atoms/format-percent'
 
 const mapStateToProps = (state) => ({
     user:       state.user.data,
@@ -15,8 +17,9 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => {
     return (
         <>
             <h1>Bem-vindo, {props.user.name}</h1>
-            <p>Mês <TotalSpent /></p>
-            {props.accounts.items.map(account => <p key={account.id}>{account.title} | {account.quota}</p>)}
+            <p>Total Gasto no Mês <TotalSpent /></p>
+            <p>Total Recebido no Mês <TotalEarned /></p>
+            {props.accounts.items.map(account => <p key={account.id}>{account.title} | <FormatPercent>{account.quota}</FormatPercent></p>)}
         </>
     )
 })

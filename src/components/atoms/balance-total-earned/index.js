@@ -6,18 +6,18 @@ const mapDispatchToProps = null
 
 const mapStateToProps = (state) => {
 
-    const { expenses } = state
+    const { earnings } = state
     
-    return ({ expenses })
+    return ({ earnings })
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)((props) => {
     
-    const expenses = props.expenses.items
+    const earnings = props.earnings.items
 
-    const totalSpent = expenses.reduce((accumulator, expense) => { 
+    const totalSpent = earnings.reduce((accumulator, expense) => { 
         return accumulator + expense.value
     }, 0)
-
+    
     return <FormatCurrency>{totalSpent}</FormatCurrency>
 })

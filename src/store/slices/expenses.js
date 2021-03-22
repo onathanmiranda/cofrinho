@@ -10,7 +10,13 @@ const initialState = {
 
 const getExpenses = createAsyncThunk(`${name}/getExpenses`, 
   (payload, thunkAPI) => {
-    return Cofrinho.expenses.getAllBy().then((data) => {
+
+    const { timeline }        = thunkAPI.getState()
+    const firstDayOfTheMonth  = timeline.month.firstDay
+    const lastDayOfTheMonth   = timeline.month.lastDay
+
+    //return all expenses for current month
+    return Cofrinho.expenses.getAllByCreatedAtRange(firstDayOfTheMonth, lastDayOfTheMonth).then((data) => {
       return data
     }).catch((e) => {
       console.log(e)

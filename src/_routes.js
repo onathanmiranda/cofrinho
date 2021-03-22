@@ -21,13 +21,15 @@ const mapDispatchToProps = (dispatchEvent) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)((props) => {
-
+    
+    const { getUser, getAccounts, getEarnings, getExpenses } = props
+    
     useEffect(() => {
-        props.getUser()
-        props.getAccounts()
-        props.getEarnings()
-        props.getExpenses()
-    }, [])
+        getUser()
+        getAccounts()
+        getEarnings()
+        getExpenses()
+    }, [ getUser, getAccounts, getEarnings, getExpenses ])
 
     const is_loading  = props.user.requesting
     const is_new_user = !is_loading && !props.user.data

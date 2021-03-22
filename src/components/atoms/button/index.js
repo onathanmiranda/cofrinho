@@ -1,1 +1,3 @@
-export default (props) => <button { ...props } />
+export default function Button(props){ 
+    return <button { ...props } /> 
+}
