@@ -26,7 +26,7 @@ export default connect( mapStateToProps, mapDispatchToProps )(({ account, accoun
     const { title, quota, id } = account
 
     return (
-        <a className={`flex`} href={`accounts/${id}`}>
+        <a className={`flex w-full p-8 shadow max-w-610`} href={`accounts/${id}`}>
             <div>
                 <FormatPercent>
                     {quota}
