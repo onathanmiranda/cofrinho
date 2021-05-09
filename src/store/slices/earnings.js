@@ -4,7 +4,8 @@ import Cofrinho from '../../apis/cofrinho'
 const name = "earnings"
 
 const initialState = {
-    items: []
+    items: [],
+    totalEarned: 0
 }
 
 const getEarnings = createAsyncThunk(`${name}/getEarnings`, 
@@ -15,10 +16,10 @@ const getEarnings = createAsyncThunk(`${name}/getEarnings`,
     const lastDayOfTheMonth   = timeline.month.lastDay
 
     return Cofrinho.earnings.getAllByCreatedAtRange(firstDayOfTheMonth, lastDayOfTheMonth).then((data) => {
-      return data
+        return data
     }).catch((e) => {
-      console.log(e)
-      return e
+        console.log(e)
+        return e
     })
   }
 )
@@ -27,6 +28,24 @@ const slice = createSlice({
   name,
   initialState,
   reducers: {},
+  extraReducers: {
+    [getEarnings.fulfilled]: ( state, action ) => {
+        
+        const earnings = action.payload
+
+        const totalEarned = earnings.reduce((accumulator, expense) => { 
+            return accumulator + expense.value
+        }, 0)
+
+        state.items = [ ...earnings ]
+        state.totalEarned = totalEarned
+    },
+    [getEarnings.pending]: ( state, action ) => {
+    },
+    [getEarnings.rejected]: ( state, action ) => {
+        console.log(action.error)
+    },
+  }
 })
 
 export { getEarnings }

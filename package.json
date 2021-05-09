@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "license": "MIT",
   "author": {
-    "name" : "Nathan Miranda",
-    "email" : "nathanhpm@gmail.com",
-    "url" : "https://github.com/onathanmiranda"
+    "name": "Nathan Miranda",
+    "email": "nathanhpm@gmail.com",
+    "url": "https://github.com/onathanmiranda"
   },
   "private": true,
   "dependencies": {

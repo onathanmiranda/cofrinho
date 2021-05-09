@@ -11,5 +11,5 @@ export default function CurrencyBLR({ children }){
     
     const FormatCurrency = formatter.format
 
-    return <span>{FormatCurrency(children)}</span>
+    return <>{FormatCurrency(children)}</>
 }

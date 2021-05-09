@@ -44,7 +44,10 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => {
                     {is_old_user  && <Redirect to="/overview" />}
                 </Route>
                 <Route path="/setup"    exact component={Setup} />
-                <Route path="/overview" exact component={Overview} />
+                <Route path="/overview" exact>
+                    {is_new_user  && <Redirect to="/setup" />}
+                    {is_old_user  && <Overview />}
+                </Route>
             </Switch>
         </BrowserRouter>
     )
