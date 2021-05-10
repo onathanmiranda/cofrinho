@@ -3,7 +3,7 @@ export default class Earning {
 
         let obj = {
             title,
-            amount,
+            amount: parseInt(amount),
             id,
             createdAt
         }

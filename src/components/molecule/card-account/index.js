@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import FormatPercent from '../../atoms/format-percent'
-import FormatCurrency from '../../atoms/format-currency'
+import formatCurrency from '../../../helpers/formatCurrency'
 
 const mapStateToProps = ( state, ownProps ) => {
 
@@ -34,11 +34,7 @@ export default connect( mapStateToProps, mapDispatchToProps )(({ account, accoun
             </div>
             <div>
                 <h3>{title}</h3>
-                <p>
-                    <FormatCurrency>
-                        {accountBudget}
-                    </FormatCurrency>
-                </p>
+                <p>{formatCurrency( accountBudget )}</p>
             </div>
         </a>
     )

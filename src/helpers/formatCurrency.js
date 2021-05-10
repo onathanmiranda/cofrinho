@@ -1,4 +1,4 @@
-export default function CurrencyBLR({ children }){
+export default function CurrencyBLR( value ){
 
     var formatter = new Intl.NumberFormat('pt-BR', {
         style: 'currency',
@@ -11,5 +11,5 @@ export default function CurrencyBLR({ children }){
     
     const FormatCurrency = formatter.format
 
-    return <>{FormatCurrency(children)}</>
+    return FormatCurrency( value / 100 )
 }

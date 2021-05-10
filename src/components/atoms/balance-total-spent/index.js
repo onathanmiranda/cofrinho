@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import FormatCurrency from '../format-currency'
+import formatCurrency from '../../../helpers/formatCurrency'
 
 const mapDispatchToProps = null
 
@@ -19,5 +19,5 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => {
         return accumulator + expense.value
     }, 0)
 
-    return <FormatCurrency>{totalSpent}</FormatCurrency>
+    return <>{formatCurrency(totalSpent)}</>
 })
