@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import TotalSpent   from '../../components/atoms/balance-total-spent'
 import AccountCard  from '../../components/molecule/card-account'
 import EarningCard  from '../../components/molecule/card-earnings'
-import FormEarning  from '../../components/molecule/form-earning'
+import FormEarning  from '../../components/molecule/form-earning-create'
 
 import formatCurrency from '../../helpers/formatCurrency'
 

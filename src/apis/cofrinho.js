@@ -3,34 +3,63 @@
 
 import { openDB } from 'idb'
 
-const name = 'cofrinho' //database name
+import AccountModel from '../models/account'
+
+const name    = 'cofrinho' //database name
 const version = 1 //database version
 
 const collectionsDefaultConfigs = {
-    keyPath: "id", //defines entity identification
-    autoIncrement: true //This object store can only hold JavaScript objects. Usually a key is generated and the value of the generated key is stored in the object in a property with the same name as the key path. However, if such a property already exists, the value of that property is used as key rather than generating a new key.
+  keyPath: "id", //defines entity identification
+  autoIncrement: true //This object store can only hold JavaScript objects. Usually a key is generated and the value of the generated key is stored in the object in a property with the same name as the key path. However, if such a property already exists, the value of that property is used as key rather than generating a new key.
 }
 
 const collections = [
-    { 
-        name: "accounts", 
-        config: { ...collectionsDefaultConfigs },
-        indexes: ["createdAt"]
-    },
-    {
-        name: "earnings",
-        config: { ...collectionsDefaultConfigs },
-        indexes: ["createdAt"]
-    },
-    {
-        name: "expenses",
-        config: { ...collectionsDefaultConfigs },
-        indexes: ["createdAt"]
-    },
-    { 
-        name: "user",
-        config: { ...collectionsDefaultConfigs }
-    }
+  { 
+    name: "accounts", 
+    config: { ...collectionsDefaultConfigs },
+    indexes: ["createdAt"]
+  },
+  {
+    name: "earnings",
+    config: { ...collectionsDefaultConfigs },
+    indexes: ["createdAt"]
+  },
+  {
+    name: "expenses",
+    config: { ...collectionsDefaultConfigs },
+    indexes: ["createdAt"]
+  },
+  { 
+    name: "user",
+    config: { ...collectionsDefaultConfigs }
+  }
+]
+
+const initialAccounts = [
+  {
+    title: "Despesas Básicas",
+    quota: 0.5
+  },
+  {
+    title: "Investimento",
+    quota: 0.1
+  },
+  {
+    title: "Despesas de Longo Prazo",
+    quota: 0.1
+  },
+  {
+    title: "Instrução",
+    quota: 0.1
+  },
+  {
+    title: "Diversão",
+    quota: 0.1
+  },
+  {
+    title: "Doação",
+    quota: 0.1
+  }
 ]
 
 class Cofrinho {
@@ -165,6 +194,20 @@ class Cofrinho {
                 //  await db3.getAllFromIndex('moreCats', 'strengthIndex', midRange),
                 //  await db3.getAllFromIndex('moreCats', 'strengthIndex', weakRange),
             // ];
+        })
+
+        //Set Initial Accounts
+        const accountName = "accounts"
+
+        this.database.then(database => {
+          database.getAll( accountName )
+          .then(( data ) => {
+            if( data.length ) return
+            initialAccounts.forEach((accountObj) => {
+              const account = new AccountModel(accountObj)
+              database.add(accountName, account)
+            })
+          })
         })
     }
 }

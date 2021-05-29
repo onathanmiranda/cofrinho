@@ -11,57 +11,84 @@ const initialState = {
 }
 
 const getEarnings = createAsyncThunk(`${name}/getEarnings`, 
-    (payload, thunkAPI) => {
+  (payload, thunkAPI) => {
+  
+    const { timeline }        = thunkAPI.getState()
+    const firstDayOfTheMonth  = timeline.month.firstDay
+    const lastDayOfTheMonth   = timeline.month.lastDay
     
-        const { timeline }        = thunkAPI.getState()
-        const firstDayOfTheMonth  = timeline.month.firstDay
-        const lastDayOfTheMonth   = timeline.month.lastDay
-
-        return Cofrinho.earnings.getAllByCreatedAtRange(firstDayOfTheMonth, lastDayOfTheMonth).then((data) => {
-            return data
-        }).catch((e) => {
-            console.log(e)
-            return e
-        })
-    }
+    return Cofrinho.earnings
+    .getAllByCreatedAtRange(firstDayOfTheMonth, lastDayOfTheMonth)
+    .then((data) => {
+      console.log(data)
+      return data
+    }).catch((e) => {
+      console.log(e)
+      return e
+    })
+  }
 )
 
 const createEarning = createAsyncThunk(`${name}/createEarnings`,
-    ( payload, thunkAPI ) => {
-        const earning = new EarningModel(payload)
+  ( payload, thunkAPI ) => {
+    const earning = new EarningModel(payload)
 
-        return ( 
-            Cofrinho.earnings
-            .post(earning)
-            .then((data) => {
-                return Cofrinho.earnings.get(data)
-            })
-            .catch((e) => {
-                console.log(e)
-                return e
-            })
-        )
-    }
+    return ( 
+      Cofrinho.earnings
+      .post(earning)
+      .then((data) => {
+        return Cofrinho.earnings.get(data)
+      })
+      .catch((e) => {
+          console.log(e)
+        return e
+      })
+    )
+  }
+)
+
+const updateEarning = createAsyncThunk(`${name}/updateEarning`, 
+  ( payload, thunkAPI ) => {
+    console.log(payload)
+    const earning = new EarningModel(payload)
+    
+    return (
+      Cofrinho.earnings
+      .put(payload)
+      .then((data) => {
+        console.log(data)
+        return earning
+      })
+      .catch((e) => {
+        console.log(e)
+        return e
+      })
+    )
+  }
 )
 
 const deleteEarning = createAsyncThunk(`${name}/deleteEarning`,
-    ( payload, thunkAPI ) => {
-        
-        const id = payload
-        
-        return ( 
-            Cofrinho.earnings
-            .delete(id)
-            .then((data) => {
-                return id
-            })
-            .catch((e) => {
-                console.log(e)
-                return e
-            })
-        )
-    }
+  ( payload, thunkAPI ) => {
+      
+    const id = payload
+    
+    return ( 
+        Cofrinho.earnings
+        .delete(id)
+        .then((data) => {
+            return id
+        })
+        .catch((e) => {
+            console.log(e)
+            return e
+        })
+    )
+  }
 )
+
+const getTotalEarned = (earnings) => earnings.reduce((accumulator, earning) => { 
+  return accumulator + earning.amount
+}, 0)
 
 const slice = createSlice({
   name,
@@ -70,29 +97,33 @@ const slice = createSlice({
   extraReducers: {
     [getEarnings.fulfilled]: ( state, action ) => {
         
-        const earnings = action.payload
+      const earnings = action.payload
 
-        const totalEarned = earnings.reduce((accumulator, earning) => { 
-            return accumulator + earning.amount
-        }, 0)
+      const totalEarned = getTotalEarned(earnings)
 
-        state.items = [ ...earnings ]
-        state.totalEarned = totalEarned
-    },
-    [getEarnings.pending]: ( state, action ) => {
+      state.items = [ ...earnings ]
+      state.totalEarned = totalEarned
     },
     [getEarnings.rejected]: ( state, action ) => {
-        console.log(action.error)
+      console.log(action.error)
     },
     [createEarning.fulfilled]: ( state, action ) => {
-        state.items.push(action.payload)
-        state.totalEarned = state.totalEarned + action.payload.amount
-    },
-    [createEarning.pending]: ( state, action ) => {
-        
+      state.items.push(action.payload)
+      state.totalEarned = state.totalEarned + action.payload.amount
     },
     [createEarning.rejected]: ( state, action ) => {
         console.log(action.error)
+    },
+    [updateEarning.fulfilled]: (state, action) => {
+      const { id } = action.payload
+      state.items = [
+        ...state.items.filter((item) => item.id !== id),
+        action.payload
+      ]
+      state.totalEarned = getTotalEarned(state.items)
+    },
+    [updateEarning.rejected]: (state, action) => {
+      console.log(action.error)
     },
     [deleteEarning.fulfilled]: ( state, action ) => {
         const updatedItems = state.items.filter( earning => earning.id !== action.payload )
@@ -113,6 +144,6 @@ const slice = createSlice({
   }
 })
 
-export { getEarnings, createEarning, deleteEarning }
+export { getEarnings, createEarning, deleteEarning, updateEarning }
 
 export const { reducer } = slice

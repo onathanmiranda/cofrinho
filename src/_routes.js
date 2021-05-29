@@ -14,7 +14,6 @@ import { getExpenses }  from './store/slices/expenses'
 const mapStateToProps = ({ user }) => ({ user })
 
 const mapDispatchToProps = (dispatchEvent) => ({
-
     getUser: () => dispatchEvent(getUser()),
     getAccounts: () => dispatchEvent(getAccounts()),
     getEarnings: () => dispatchEvent(getEarnings()),
