@@ -10,7 +10,7 @@ const initialState = {
 }
 
 const getAccounts = createAsyncThunk(`${name}/getAccounts`, 
-  (payload, thunkAPI) => {
+  () => {
     return Cofrinho.accounts.getAll()
     .then((data) => {
       return data

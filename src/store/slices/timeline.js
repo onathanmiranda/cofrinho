@@ -20,12 +20,12 @@ const slice = createSlice({
         const newDateTimeStamp = currentDate.setMonth(currentDate.getMonth() + 1).getTime()
         state.current = new Timeline(newDateTimeStamp)
       },
-      goToPreviousYear: (state, action) => {
+      goPreviousYear: (state, action) => {
         const currentDate = new Date(state.timestamp)
         const newDateTimeStamp = currentDate.setFullYear(currentDate.getFullYear() - 1).getTime()
         state.current = new Timeline(newDateTimeStamp)
       },
-      goToNextYear: (state, action) => {
+      goNextYear: (state, action) => {
         const currentDate = new Date(state.timestamp)
         const newDateTimeStamp = currentDate.setFullYear(currentDate.getFullYear() + 1).getTime()
         state.current = new Timeline(newDateTimeStamp)
@@ -34,3 +34,10 @@ const slice = createSlice({
 })
 
 export const { reducer } = slice
+
+export const {
+  goNextMonth,
+  goPreviousMonth,
+  goNextYear,
+  goPreviousYear
+} = slice.actions

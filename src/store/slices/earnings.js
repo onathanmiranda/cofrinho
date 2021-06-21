@@ -11,7 +11,7 @@ const initialState = {
 }
 
 const getEarnings = createAsyncThunk(`${name}/getEarnings`, 
-  (payload, thunkAPI) => {
+  ( payload, thunkAPI ) => {
   
     const { timeline }        = thunkAPI.getState()
     const firstDayOfTheMonth  = timeline.month.firstDay
@@ -20,7 +20,6 @@ const getEarnings = createAsyncThunk(`${name}/getEarnings`,
     return Cofrinho.earnings
     .getAllByCreatedAtRange(firstDayOfTheMonth, lastDayOfTheMonth)
     .then((data) => {
-      console.log(data)
       return data
     }).catch((e) => {
       console.log(e)
@@ -30,7 +29,7 @@ const getEarnings = createAsyncThunk(`${name}/getEarnings`,
 )
 
 const createEarning = createAsyncThunk(`${name}/createEarnings`,
-  ( payload, thunkAPI ) => {
+  ( payload ) => {
     const earning = new EarningModel(payload)
 
     return ( 
@@ -48,15 +47,14 @@ const createEarning = createAsyncThunk(`${name}/createEarnings`,
 )
 
 const updateEarning = createAsyncThunk(`${name}/updateEarning`, 
-  ( payload, thunkAPI ) => {
-    console.log(payload)
+  ( payload ) => {
+
     const earning = new EarningModel(payload)
     
     return (
       Cofrinho.earnings
       .put(payload)
       .then((data) => {
-        console.log(data)
         return earning
       })
       .catch((e) => {
@@ -68,7 +66,7 @@ const updateEarning = createAsyncThunk(`${name}/updateEarning`,
 )
 
 const deleteEarning = createAsyncThunk(`${name}/deleteEarning`,
-  ( payload, thunkAPI ) => {
+  ( payload ) => {
       
     const id = payload
     

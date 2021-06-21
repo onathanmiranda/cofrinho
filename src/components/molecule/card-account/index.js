@@ -1,41 +1,24 @@
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import FormatPercent from '../../atoms/format-percent'
 import formatCurrency from '../../../helpers/formatCurrency'
 
-const mapStateToProps = ( state, ownProps ) => {
+export default function CardAccount({ id }){
 
-    const accounts  = state.accounts.items
-    const accountID = ownProps.id
-    const account   = accounts.find(( account ) => account.id === accountID )
-
-    const { totalEarned }   = state.earnings
-    const accountQuota      = account.quota
-    const accountBudget     = totalEarned * accountQuota
-
-    return ({
-        account,
-        accountBudget
-    })
-}
-
-const mapDispatchToProps = null 
-
-export default connect( mapStateToProps, mapDispatchToProps )(({ account, accountBudget }) => {
-    
-    const { title, quota, id } = account
+    const account = useSelector(({ accounts }) => accounts.items.find(( account ) => account.id === id ))
+    const accountBudget = useSelector(({ earnings }) => earnings.totalEarned * account.quota)
 
     return (
-        <a className={`flex w-full p-8 shadow max-w-610`} href={`accounts/${id}`}>
+        <a className={`flex w-full p-8 shadow max-w-610`} href={`accounts/${account.id}`}>
             <div>
                 <FormatPercent>
-                    {quota}
+                    {account.quota}
                 </FormatPercent>
             </div>
             <div>
-                <h3>{title}</h3>
+                <h3>{account.title}</h3>
                 <p>{formatCurrency( accountBudget )}</p>
             </div>
         </a>
     )
-})
+}
