@@ -1,12 +1,14 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import InputText from '../../atoms/input-text'
 import InputAmount from '../../atoms/input-amount'
 import Button from '../../atoms/button'
 
-export default function FormCreateExpense(props){
+import { createExpense, getExpenses } from '../../../store/slices/expenses'
 
+export default function FormCreateExpense(props){
+  const dispatchEvent = useDispatch();
   const accounts = useSelector(({ accounts }) => accounts.items)
 
   const [ title, setTitle ] = useState("")
@@ -14,15 +16,25 @@ export default function FormCreateExpense(props){
   const [ accountID, setAccountID ] = useState()
 
   const onSubmit = (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
+    Promise.all([
+      dispatchEvent(createExpense({
+        title,
+        amount,
+        account: accountID
+      }))
+    ]).then(() => {
+      return dispatchEvent(getExpenses())
+    }).then(() => {
+      if(props.onSubmit) props.onSubmit()
+    })
   }
 
   return (
     <form onSubmit={onSubmit} className={`bg-white px-13 py-21`}>
       <label>
         Com o que você gastou?
-        <InputText required={true} onChange={(e) => setTitle(title)} value={title} name="title" placeholder="Ex: Aluguel" />
+        <InputText required={true} onChange={(e) => setTitle(e.target.value)} value={title} name="title" placeholder="Ex: Aluguel" />
       </label>
       <InputAmount required={true} onChange={setAmount} value={amount} />
       <div>
