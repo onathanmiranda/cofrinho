@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import InputText from '../../atoms/input-text'
@@ -10,6 +10,7 @@ import { createExpense, getExpenses } from '../../../store/slices/expenses'
 export default function FormCreateExpense(props){
   const dispatchEvent = useDispatch();
   const accounts = useSelector(({ accounts }) => accounts.items)
+  const inputTitle = useRef();
 
   const [ title, setTitle ] = useState("")
   const [ amount, setAmount ] = useState(0)
@@ -30,11 +31,15 @@ export default function FormCreateExpense(props){
     })
   }
 
+  useEffect(() => {
+    inputTitle.current.focus()
+  }, [])
+
   return (
     <form onSubmit={onSubmit} className={`bg-white px-13 py-21`}>
       <label>
         Com o que você gastou?
-        <InputText required={true} onChange={(e) => setTitle(e.target.value)} value={title} name="title" placeholder="Ex: Aluguel" />
+        <InputText ref={inputTitle} required={true} onChange={(e) => setTitle(e.target.value)} value={title} name="title" placeholder="Ex: Aluguel" />
       </label>
       <InputAmount required={true} onChange={setAmount} value={amount} />
       <div>

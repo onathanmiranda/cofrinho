@@ -1,3 +1,5 @@
+import styles from './styles.module.scss'
+
 export default function Button(props){ 
-    return <button { ...props } className={`border px-8 ${ props.className }`} /> 
+    return <button { ...props } className={`${ styles.button } ${ props.className || '' }`} /> 
 }

@@ -1,0 +1,10 @@
+.input {
+  border: .1rem solid #999;
+  border-radius: .2rem;
+  padding: 0 .8rem;
+  height: 3.4rem;
+
+  &:focus {
+    outline: none;
+  }
+}

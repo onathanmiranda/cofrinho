@@ -21,7 +21,7 @@ export default function FloatingCreateExpense(props){
       {!open && <Button className={`fixed bottom-21 right-21 z-10 bg-black rounded-full h-55 w-55`} onClick={toggleOpen}></Button>}
       {open && 
         <div style={{ height }} className={`fixed flex justify-center items-center bottom-0 left-0 w-full z-10 bg-black bg-opacity-75`}>
-          <FormExpenseCreate onCancel={toggleOpen}/>
+          <FormExpenseCreate onSubmit={toggleOpen} onCancel={toggleOpen}/>
         </div>
       }
     </>

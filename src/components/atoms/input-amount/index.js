@@ -1,3 +1,5 @@
+import styles from './styles.module.scss'
+
 import formatCurrency from '../../../helpers/formatCurrency'
 
 export default function AmountInput( props ){
@@ -5,7 +7,7 @@ export default function AmountInput( props ){
     const onChange = (e) => {
         let { value } = e.target
         value = value.replace(/\D/g,"") //remove non-numeric chars
-        props.onChange( value )
+        props.onChange( parseInt( value ))
     }
 
     const formattedValue = formatCurrency( props.value )
@@ -13,7 +15,7 @@ export default function AmountInput( props ){
     return (
         <div>
             <label htmlFor={ props.name }>{ props.label || "Quantia" }</label>
-            <input { ...props } value={ formattedValue } onChange={onChange} name={ props.name } type="text" />
+            <input { ...props } className={ styles.input } value={ formattedValue } onChange={onChange} name={ props.name } type="text" />
         </div>
     )
 }

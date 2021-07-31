@@ -1,23 +1,14 @@
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import formatCurrency from '../../../helpers/formatCurrency'
 
-const mapDispatchToProps = null
-
-const mapStateToProps = (state) => {
-
-    const { expenses } = state
+export default function BalanceTotalSpent(props){
     
-    return ({ expenses })
-}
+    const expenses = useSelector(({ expenses }) => expenses.items)
 
-export default connect(mapStateToProps, mapDispatchToProps)((props) => {
-    
-    const expenses = props.expenses.items
-
-    const totalSpent = expenses.reduce((accumulator, expense) => { 
-        return accumulator + expense.value
+    const totalSpent = expenses.reduce((accumulator, expense) => {
+      return accumulator + expense.amount
     }, 0)
 
     return <>{formatCurrency(totalSpent)}</>
-})
+}

@@ -1,0 +1,17 @@
+$color: #000;
+$textColor: #f2f2f2;
+
+.button {
+  border: .1rem solid $color;
+  border-radius: .2rem;
+  background: $color;
+  color: $textColor;
+  border-radius: .2rem;
+  padding: 0 .8rem;
+  height: 3.4rem;
+  margin: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
