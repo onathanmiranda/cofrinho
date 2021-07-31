@@ -4,6 +4,7 @@ import TotalSpent   from '../../components/atoms/balance-total-spent'
 import AccountCard  from '../../components/molecule/card-account'
 import EarningCard  from '../../components/molecule/card-earnings'
 import FormEarning  from '../../components/molecule/form-earning-create'
+import Timeline     from '../../components/organism/timeline'
 import FloatingCreateExpense from '../../components/organism/floating-create-expense'
 
 import formatCurrency from '../../helpers/formatCurrency'
@@ -39,6 +40,8 @@ export default connect(mapStateToProps, mapDispatchToProps)((props) => {
             {earnings.map((earning) => (
                 <EarningCard id={ earning.id } key={ earning.id } />
             ))}
+
+            <Timeline />
 
             <FloatingCreateExpense />
         </>

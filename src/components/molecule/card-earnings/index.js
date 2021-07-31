@@ -29,6 +29,12 @@ export default function EarningCard({ id }){
     set_isEditing(false)
   }
 
+  function onCancelEdit(){
+    set_isEditing(false)
+    set_title(earning.title)
+    set_amount(earning.amount)
+  }
+
   return (
     <div className={`flex w-full p-8 shadow max-w-610 justify-between`}>
       {!isEditing && <>
@@ -48,6 +54,7 @@ export default function EarningCard({ id }){
             <InputAmount placeholder="R$ 1.500,00" name="amount" value={amount} onChange={set_amount} />
           </div>
           <Button type="submit">Atualizar</Button>
+          <Button type="button" onClick={onCancelEdit}>Cancelar</Button>
         </form>
       )}
     </div>
