@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Provider, useDispatch } from 'react-redux'
+import { Provider, useDispatch, useSelector } from 'react-redux'
 
 import store            from './store'
 import { getUser }      from './store/slices/user'
@@ -13,12 +13,17 @@ function AppContainer(){
 
   const dispatchEvent = useDispatch()
 
+  const timeline = useSelector(({ timeline }) => timeline)
+
   useEffect(() => {
     dispatchEvent(getUser())
+  }, [ dispatchEvent ])
+
+  useEffect(() => {
     dispatchEvent(getAccounts())
     dispatchEvent(getEarnings())
     dispatchEvent(getExpenses())
-  }, [ dispatchEvent ])
+  }, [ dispatchEvent, timeline ])
 
   return (
     <Routes />

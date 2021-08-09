@@ -20,30 +20,32 @@ const mapDispatchToProps = null
 
 export default connect(mapStateToProps, mapDispatchToProps)((props) => { 
 
-    const accounts = props.accounts.items
-    const { totalEarned } = props.earnings
+  const accounts = props.accounts.items
+  const { totalEarned } = props.earnings
 
-    const earnings = props.earnings.items
-    
-    return (
-        <>
-            <h1>Bem-vindo, {props.user.name}</h1>
+  const earnings = props.earnings.items
+  
+  return (
+    <>
+      <h1>Bem-vindo, {props.user.name}</h1>
 
-            {accounts.map((account) => (
-                <AccountCard id={account.id} key={account.id} />
-            ))}
-            
-            <FormEarning />
-            <p>Total Gasto no Mês <TotalSpent /></p>
-            <p>Total Recebido no Mês {formatCurrency( totalEarned )}</p>
-            
-            {earnings.map((earning) => (
-                <EarningCard id={ earning.id } key={ earning.id } />
-            ))}
+      <p><TotalSpent /></p>
+      <p>Total Recebido no Mês {formatCurrency( totalEarned )}</p>
 
-            <Timeline />
+      {accounts.map((account) => (
+          <AccountCard id={account.id} key={account.id} />
+      ))}
+      
+      <FormEarning />
+      <p>Total Gasto no Mês <TotalSpent /></p>
+      
+      {earnings.map((earning) => (
+          <EarningCard id={ earning.id } key={ earning.id } />
+      ))}
 
-            <FloatingCreateExpense />
-        </>
-    )
+      <Timeline />
+
+      <FloatingCreateExpense />
+    </>
+  )
 })

@@ -12,10 +12,9 @@ const initialState = {
 
 const getEarnings = createAsyncThunk(`${name}/getEarnings`, 
   ( payload, thunkAPI ) => {
-  
     const { timeline }        = thunkAPI.getState()
-    const firstDayOfTheMonth  = timeline.month.firstDay
-    const lastDayOfTheMonth   = timeline.month.lastDay
+    const firstDayOfTheMonth  = timeline.current.month.firstDay
+    const lastDayOfTheMonth   = timeline.current.month.lastDay
     
     return Cofrinho.earnings
     .getAllByCreatedAtRange(firstDayOfTheMonth, lastDayOfTheMonth)

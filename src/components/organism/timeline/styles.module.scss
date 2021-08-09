@@ -1,0 +1,14 @@
+.timeline {
+  display: flex;
+}
+
+.monthButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: .1rem solid gray;
+  border-radius: .2rem;
+  padding: 0 .8rem;
+  height: 3.4rem;
+  margin: 0;
+}

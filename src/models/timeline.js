@@ -1,22 +1,43 @@
 export default class Timeline {
-    constructor(timestamp){
-        
-        timestamp = timestamp ? timestamp : new Date().getTime()
-        const date  = new Date(timestamp)
+  constructor(timestamp = new Date().getTime()){
 
-        const day   = date.getDate()
-        const year  = date.getFullYear()
-        const month = {}
+    function generateMonthData(date){
+      const _timestamp = date.getTime()
+
+      const day   = date.getDate()
+      const year  = date.getFullYear()
+
+      const month = {}
             month.id        = date.getMonth()
             month.firstDay  = new Date(year, month.id, 1).getTime()
             month.lastDay   = new Date(year, month.id + 1, 0).getTime()
             month.name      = date.toLocaleString('default', { month: 'long' })
-    
-        return ({
-            day,
-            month,
-            year,
-            timestamp
-        })
+      
+      return ({
+        day,
+        month,
+        year,
+        timestamp: _timestamp
+      })
     }
+
+    const currentDate = new Date( timestamp )
+    const current = generateMonthData( currentDate )
+    
+    const currentDateMonth = currentDate.getMonth()
+    currentDate.setMonth( currentDateMonth + 1 )
+    const next = generateMonthData( currentDate )
+
+    currentDate.setMonth( currentDateMonth )
+    currentDate.setDate(0)
+    const previous = generateMonthData( currentDate )
+
+    const returnValue = {
+      current,
+      next,
+      previous
+    }
+
+    return returnValue
+  }
 }

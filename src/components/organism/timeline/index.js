@@ -1,14 +1,23 @@
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
+
+import { goNextMonth, goPreviousMonth } from '../../../store/slices/timeline'
+
+import styles from './styles.module.scss'
 
 export default function Timeline(){
-  
+
+  const dispatchEvent = useDispatch()
+
   const timeline = useSelector(({ timeline }) => timeline)
 
+  const nextMonthOnClick      = () => dispatchEvent(goNextMonth())
+  const previousMonthOnClick  = () => dispatchEvent(goPreviousMonth())
+
   return (
-    <div>
-      <button>{timeline.previous.month.name}</button>
-      <button>{timeline.current.month.name}</button>
-      <button>{timeline.next.month.name}</button>
-    </div>
+    <nav className={styles.timeline}>
+      <button className={styles.monthButton} onClick={previousMonthOnClick}>{timeline.previous.month.name}</button>
+      <div className={styles.monthButton}>{timeline.current.month.name}</div>
+      <button className={styles.monthButton} onClick={nextMonthOnClick}>{timeline.next.month.name}</button>
+    </nav>
   )
 }
