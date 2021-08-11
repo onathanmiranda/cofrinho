@@ -7,6 +7,8 @@ import Button from '../../atoms/button'
 
 import { createExpense, getExpenses } from '../../../store/slices/expenses'
 
+import styles from './styles.module.scss'
+
 export default function FormCreateExpense(props){
   const dispatchEvent = useDispatch();
   const accounts = useSelector(({ accounts }) => accounts.items)
@@ -35,8 +37,10 @@ export default function FormCreateExpense(props){
     inputTitle.current.focus()
   }, [])
 
+  console.log(styles)
+
   return (
-    <form onSubmit={onSubmit} className={`bg-white px-13 py-21`}>
+    <form onSubmit={onSubmit} className={`${styles.form} px-13 py-21`}>
       <label>
         Com o que você gastou?
         <InputText ref={inputTitle} required={true} onChange={(e) => setTitle(e.target.value)} value={title} name="title" placeholder="Ex: Aluguel" />

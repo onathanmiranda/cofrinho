@@ -6,6 +6,7 @@ const name = "expenses"
 
 const initialState = {
     items: [],
+    totalSpent: 0,
     requesting: false
 }
 
@@ -40,6 +41,10 @@ const createExpense = createAsyncThunk(`${name}/createExpense`,
   }
 )
 
+const getTotalSpent = (expenses) => expenses.reduce((accumulator, expense) => { 
+  return accumulator + expense.amount
+}, 0)
+
 const slice = createSlice({
   name,
   initialState,
@@ -48,6 +53,7 @@ const slice = createSlice({
     [getExpenses.fulfilled]: (state, action) => {
       state.requesting = false
       state.items = action.payload
+      state.totalSpent = getTotalSpent(action.payload)
     },
     [getExpenses.pending]: (state, action) => {
       state.requesting = true
@@ -71,4 +77,5 @@ const slice = createSlice({
 })
 
 export { getExpenses, createExpense }
+
 export const { reducer } = slice
