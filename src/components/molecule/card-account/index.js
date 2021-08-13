@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux'
 import FormatPercent from '../../atoms/format-percent'
 import formatCurrency from '../../../helpers/formatCurrency'
 
-export default function CardAccount({ id }){
+import styles from './styles.module.scss'
+
+export default function CardAccount({ id, className, style }){
 
     const account = useSelector(({ accounts }) => accounts.items.find(( account ) => account.id === id ))
     const accountBudget = useSelector(({ earnings }) => earnings.totalEarned * account.quota)
@@ -13,9 +15,9 @@ export default function CardAccount({ id }){
     }, 0)
 
     const remainingTotal = accountBudget - totalSpent
-
+    
     return (
-        <a className={`flex w-full p-8 shadow max-w-610`} href={`accounts/${account.id}`}>
+        <a style={style} className={`${styles.card} ${className || ''}`} href={`accounts/${account.id}`}>
             <div>
                 <FormatPercent>
                     {account.quota}

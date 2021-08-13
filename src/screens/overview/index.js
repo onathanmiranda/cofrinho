@@ -7,6 +7,8 @@ import Summary      from '../../components/organism/summary'
 import FloatingCreateExpense from '../../components/organism/floating-create-expense'
 import AccountsCarousel from '../../components/organism/carousel-accounts'
 
+import styles from './styles.module.scss'
+
 const mapStateToProps = (state) => ({
     user:       state.user.data,
     earnings:   state.earnings
@@ -14,13 +16,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = null
 
+
 export default connect(mapStateToProps, mapDispatchToProps)((props) => { 
 
   const earnings = props.earnings.items
   
   return (
     <>
-      <h1>Bem-vindo, {props.user.name}</h1>
+      <h1 className={styles.welcome}>Bem-vindo, {props.user.name}</h1>
 
       <Summary />
 
