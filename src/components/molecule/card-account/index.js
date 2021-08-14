@@ -1,8 +1,10 @@
 import { useSelector } from 'react-redux'
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import FormatPercent from '../../atoms/format-percent'
+import formatPercentage from '../../../helpers/formatPercentage'
 import formatCurrency from '../../../helpers/formatCurrency'
 
+import 'swiper/swiper.scss';
 import styles from './styles.module.scss'
 
 export default function CardAccount({ id, className, style }){
@@ -18,15 +20,33 @@ export default function CardAccount({ id, className, style }){
     
     return (
         <a style={style} className={`${styles.card} ${className || ''}`} href={`accounts/${account.id}`}>
-            <div>
-                <FormatPercent>
-                    {account.quota}
-                </FormatPercent>
+          <header className={styles.header}>
+            <div className={styles.quota}>
+              {formatPercentage(account.quota)}
             </div>
             <div>
-                <h3>{account.title}</h3>
-                <p>{formatCurrency( remainingTotal )}</p>
+              <h3>{account.title}</h3>
+              <p>{formatCurrency( remainingTotal )}</p>
             </div>
+          </header>
+          <section className={styles.expenses}>
+            <h3 className={styles.latestExpensesTitle}>Últimas despesas</h3>
+            <Swiper
+              spaceBetween={5}
+              slidesPerView={'auto'}
+              freeMode={true}
+              className={styles.expensesSwaper}
+            >
+              {expenses.map((expense) => {
+                return (
+                  <SwiperSlide className={styles.expense} key={expense.id}>
+                    <div className={styles.expenseTitle}>{expense.title}</div>
+                    {formatCurrency( expense.amount )}
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </section>
         </a>
     )
 }
