@@ -1,43 +1,25 @@
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-import EarningCard  from '../../components/molecule/card-earnings'
-import FormEarning  from '../../components/molecule/form-earning-create'
 import Timeline     from '../../components/organism/timeline'
 import Summary      from '../../components/organism/summary'
+import EarningsList from '../../components/organism/list-earnings'
 import FloatingCreateExpense from '../../components/organism/floating-create-expense'
 import AccountsCarousel from '../../components/organism/carousel-accounts'
 
 import styles from './styles.module.scss'
 
-const mapStateToProps = (state) => ({
-    user:       state.user.data,
-    earnings:   state.earnings
-})
+export default function Overview(props){
 
-const mapDispatchToProps = null
-
-
-export default connect(mapStateToProps, mapDispatchToProps)((props) => { 
-
-  const earnings = props.earnings.items
+  const user = useSelector(({ user }) => user.data )
   
   return (
     <>
-      <h1 className={styles.welcome}>Bem-vindo, {props.user.name}</h1>
-
+      <h1 className={styles.welcome}>Bem-vindo, {user.name}</h1>
       <Summary />
-
       <AccountsCarousel />
-      
-      <FormEarning />
-      
-      {earnings.map((earning) => (
-          <EarningCard id={ earning.id } key={ earning.id } />
-      ))}
-
+      <EarningsList />
       <Timeline />
-
       <FloatingCreateExpense />
     </>
   )
-})
+}

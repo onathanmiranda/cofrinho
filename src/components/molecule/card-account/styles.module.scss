@@ -11,24 +11,35 @@ $box-shadow: .2rem .2rem .4rem .3rem rgba(20, 20, 17, 0.3);
   margin: auto;
   border-radius: .4rem;
   padding: .8rem;
+  background-color: #1f1f1f;
 }
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: rgba(255,255,255, .5);
 }
 .quota {
   font-size: 5.5rem;
   color: rgba(255,255,255, .05);
   font-weight: 900;
   margin-right: 2.1rem;
+  line-height: 1;
 }
-
+.remainingTotal {
+  font-size: 4rem;
+  font-weight: 100;
+  letter-spacing: .1rem;
+  text-align: right;
+  display: block;
+}
 .latestExpensesTitle {
   font-size: 1.3rem;
   text-transform: uppercase;
   margin-bottom: .8rem;
-  color: rgba(255,255,255,.3);
+  color: rgba(255,255,255,.2);
+  letter-spacing: .05rem;
+  text-align: right;
 }
 .expensesSwaper {
   width: 100%;

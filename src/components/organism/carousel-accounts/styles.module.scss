@@ -1,12 +1,8 @@
 $height: 50rem;
 
-.swiper {
+.section {
   padding: 3.4rem 0;
 }
-
-.card {
-  width: 80%;
-  position: absolute;
-  top: 0;
-  height: $height;
+.slide {
+  width: calc(100% - 2.1rem * 2);
 }

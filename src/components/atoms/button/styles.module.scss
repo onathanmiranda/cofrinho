@@ -1,15 +1,17 @@
-$color: #000;
-$textColor: #f2f2f2;
+$color: rgba(255,255,255,.1);
+$textColor: rgba(255,255,255,.7);
 
 .button {
-  border: .1rem solid $color;
+  display: block;
   border-radius: .2rem;
   background: $color;
   color: $textColor;
-  border-radius: .2rem;
+  border-radius: .4rem;
   padding: 0 .8rem;
-  height: 3.4rem;
+  height: 5.5rem;
+  width: 100%;
   margin: 0;
+  letter-spacing: .1rem;
 
   &:focus {
     outline: none;

@@ -41,7 +41,7 @@ const initialAccounts = [
     quota: 0.5
   },
   {
-    title: "Investimento",
+    title: "Investimentos",
     quota: 0.1
   },
   {
