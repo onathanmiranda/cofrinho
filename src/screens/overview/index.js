@@ -13,13 +13,13 @@ export default function Overview(props){
   const user = useSelector(({ user }) => user.data )
   
   return (
-    <>
+    <div className={styles.wrapper}>
       <h1 className={styles.welcome}>Bem-vindo, {user.name}</h1>
       <Summary />
       <AccountsCarousel />
       <EarningsList />
       <Timeline />
       <FloatingCreateExpense />
-    </>
+    </div>
   )
 }

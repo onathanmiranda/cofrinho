@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import InputText from '../../atoms/input-text'
@@ -7,9 +7,13 @@ import Button from '../../atoms/button'
 import { postUser } from '../../../store/slices/user'
 import { getAccounts } from '../../../store/slices/accounts'
 
+import styles from './styles.module.scss'
+
 export default function FormSetup(props){
 
   const [ name, set_name ] = useState("")
+
+  const inputNameRef = useRef();
   
   const dispatchEvent = useDispatch();
   
@@ -28,12 +32,15 @@ export default function FormSetup(props){
     }
   }
 
+  useEffect(() => {
+    inputNameRef.current.focus()
+  }, []);
+
   return (
     <>
       <form onSubmit={onSubmit}>
-        <label htmlFor="name">Como você gostaria de ser chamado?</label>
-        <InputText name="name" value={name} onChange={onChange} />
-        <Button type="submit">Salvar</Button>
+        <InputText className={styles.input} placeholder="Como você se chama?" ref={inputNameRef} name="name" value={name} onChange={onChange}  />
+        <Button className={styles.cta} type="submit">Salvar</Button>
       </form>
     </>
   )

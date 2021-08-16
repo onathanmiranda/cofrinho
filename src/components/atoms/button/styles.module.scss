@@ -1,10 +1,11 @@
-$color: rgba(255,255,255,.1);
+$bgColor: rgba(255,255,255,.1);
+$bgColor_hover: rgba(255,255,255,.15);
 $textColor: rgba(255,255,255,.7);
 
 .button {
   display: block;
   border-radius: .2rem;
-  background: $color;
+  background-color: $bgColor;
   color: $textColor;
   border-radius: .4rem;
   padding: 0 .8rem;
@@ -12,8 +13,11 @@ $textColor: rgba(255,255,255,.7);
   width: 100%;
   margin: 0;
   letter-spacing: .1rem;
-
+  transition: background-color .3s;
   &:focus {
     outline: none;
+  }
+  &:hover {
+    background-color: $bgColor_hover;
   }
 }

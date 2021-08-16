@@ -13,9 +13,9 @@ export default function EarningsList(){
     <section className={styles.section}>
       <h2 className={styles.listTitle}>Receita</h2>
       {earnings.map((earning) => (
-        <EarningCard id={ earning.id } key={ earning.id } />
+        <EarningCard className={ styles.earning } id={ earning.id } key={ earning.id } />
       ))}
-      <FormEarning />
+      <FormEarning className={ styles.form }/>
     </section>
   )
 }

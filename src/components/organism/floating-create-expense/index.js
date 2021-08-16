@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
+import { AttachMoney } from '@material-ui/icons'
 
 import Button from '../../atoms/button'
 import FormExpenseCreate from '../../molecule/form-expense-create'
+
+import styles from './styles.module.scss';
 
 export default function FloatingCreateExpense(props){
 
@@ -18,7 +21,11 @@ export default function FloatingCreateExpense(props){
 
   return (
     <>
-      {!open && <Button className={`fixed bottom-21 right-21 z-10 bg-black rounded-full h-55 w-55`} onClick={toggleOpen}></Button>}
+      {!open && 
+        <Button className={styles.floatingButton} onClick={toggleOpen}>
+          <AttachMoney style={{ fontSize: '5.5rem' }} />
+        </Button>
+      }
       {open && 
         <div style={{ height }} className={`fixed flex justify-center items-center bottom-0 left-0 w-full z-10 bg-black bg-opacity-75`}>
           <FormExpenseCreate onSubmit={toggleOpen} onCancel={toggleOpen}/>

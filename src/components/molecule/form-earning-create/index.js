@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { createEarning } from '../../../store/slices/earnings'
@@ -11,40 +11,40 @@ import styles from './styles.module.scss'
 
 export default function FormEarning(props){
 
-  const [ title, set_title ]   = useState("")
-  const [ amount, set_amount ] = useState("")
-  const [ open, set_open ]     = useState(false)
+  const [ title, set_title ]   = useState("");
+  const [ amount, set_amount ] = useState("");
+  const [ open, set_open ]     = useState(false);
 
-  const dispatchEvent = useDispatch()
+  const dispatchEvent = useDispatch();
+  const inputTitleRef = useRef();
   
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+  
+    dispatchEvent(createEarning({ title, amount }));
 
-    dispatchEvent(createEarning({ title, amount }))
+    set_open(false);
+    set_title("");
+    set_amount("");
 
-    set_title("")
-    set_amount("")
-
-    if(props.onSubmit) props.onSubmit()
+    if(props.onSubmit) props.onSubmit();
   }
+  
+  useEffect(() => {
+    if(open) inputTitleRef.current.focus();
+  }, [open]);
 
   return (
     <>
       {!open && 
-        <Button>
-          Adicionar nova receita
-        </Button>
+        <Button  className={`${props.className || ""}`} onClick={() => set_open( true )} type="button" >Adicionar</Button>
       }
-      {open &&
-        <form onSubmit={onSubmit} className={`p-13 bg-gray-200`}>
-          <div className={`p-13`}>
-            <label htmlFor="title">Título</label>
-            <InputText placeholder="Salário" name="title" value={title} onChange={(e) => set_title(e.target.value)} />
-          </div>
-          <div className={`p-13`}>
-            <InputAmount placeholder="R$ 1.500,00" name="amount" value={amount} onChange={set_amount} />
-          </div>
-          <Button type="submit">Adicionar</Button>
+      {open && 
+        <form onSubmit={onSubmit} className={ `${styles.form} ${props.className || ""}` }>
+          <InputText ref={inputTitleRef} className={ styles.titleInput } placeholder="Título da Receita" name="title" value={title} onChange={(e) => set_title(e.target.value)} required={ true }/>
+          <InputAmount className={ styles.amountInput } name="amount" value={amount} onChange={set_amount} required={ true }/>
+          <Button className={ styles.submitButton } type="submit" >Adicionar</Button>
+          <Button className={ styles.cancelButton } onClick={() => set_open( false )} type="button" >Cancelar</Button>
         </form>
       }
     </>

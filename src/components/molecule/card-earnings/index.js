@@ -1,5 +1,6 @@
 import { useState }                 from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { DeleteForever, Edit }  from '@material-ui/icons'
 
 import Button       from '../../atoms/button'
 import InputText    from '../../atoms/input-text'
@@ -9,7 +10,9 @@ import formatCurrency from '../../../helpers/formatCurrency'
 
 import { deleteEarning, updateEarning } from '../../../store/slices/earnings'
 
-export default function EarningCard({ id }){
+import styles from './styles.module.scss'
+
+export default function EarningCard({ id, className }){
 
   const dispatchEvent = useDispatch();
   
@@ -36,13 +39,19 @@ export default function EarningCard({ id }){
   }
 
   return (
-    <div className={`flex w-full p-8 shadow max-w-610 justify-between`}>
-      {!isEditing && <>
-        <div>{ earning.title }</div>
-        <div>{ formatCurrency( earning.amount ) }</div>
-        <Button type='button' onClick={ () => set_isEditing( true ) }>Editar</Button>
-        <Button type='button' onClick={ () => dispatchEvent(deleteEarning( id )) }>Apagar</Button>
-      </>}
+    <>
+      {!isEditing && 
+        <article className={`${styles.card} ${className || ""}`}>
+          <div className={styles.title}>{ earning.title }</div>
+          <div className={styles.amount}>{ formatCurrency( earning.amount ) }</div>
+          <Button className={styles.cardButton} type='button' onClick={ () => set_isEditing( true ) }>
+            <Edit fontSize="large" />
+          </Button>
+          <Button className={styles.cardButton} type='button' onClick={ () => dispatchEvent(deleteEarning( id )) }>
+            <DeleteForever fontSize="large" />
+          </Button>
+        </article>
+      }
 
       {isEditing && (
         <form onSubmit={onEdit} className={`p-13 bg-gray-200`}>
@@ -57,6 +66,6 @@ export default function EarningCard({ id }){
           <Button type="button" onClick={onCancelEdit}>Cancelar</Button>
         </form>
       )}
-    </div>
+    </>
   )
 }

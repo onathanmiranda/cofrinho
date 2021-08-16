@@ -1,10 +1,15 @@
 .input {
-  border: .1rem solid #999;
-  border-radius: .2rem;
-  padding: 0 .8rem;
-  height: 3.4rem;
+  display: block;
+  color: rgba(255,255,255,.8);
+  background-color: #000;
+  height: 5.5rem;
+  border-radius: .4rem;
+  padding: 0 1.3rem;
 
   &:focus {
     outline: none;
+  }
+  &::placeholder {
+    color: rgba(255,255,255,.3);
   }
 }

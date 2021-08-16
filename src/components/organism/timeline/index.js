@@ -1,4 +1,5 @@
 import { useSelector,useDispatch } from 'react-redux'
+import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 
 import { goNextMonth, goPreviousMonth } from '../../../store/slices/timeline'
 
@@ -15,9 +16,15 @@ export default function Timeline(){
 
   return (
     <nav className={styles.timeline}>
-      <button className={styles.monthButton} onClick={previousMonthOnClick}>{timeline.previous.month.name}</button>
+      <button className={styles.monthButton} onClick={previousMonthOnClick}>
+        <ArrowBackIos />
+        {timeline.previous.month.name}
+      </button>
       <div className={styles.monthButton}>{timeline.current.month.name}</div>
-      <button className={styles.monthButton} onClick={nextMonthOnClick}>{timeline.next.month.name}</button>
+      <button className={styles.monthButton} onClick={nextMonthOnClick}>
+        {timeline.next.month.name}
+        <ArrowForwardIos />
+      </button>
     </nav>
   )
 }
