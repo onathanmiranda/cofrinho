@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { createEarning } from '../../../store/slices/earnings'
 
@@ -17,11 +17,14 @@ export default function FormEarning(props){
 
   const dispatchEvent = useDispatch();
   const inputTitleRef = useRef();
+  const currentMonthTimestamp = useSelector(({ timeline }) => timeline.current.timestamp)
   
   const onSubmit = (e) => {
     e.preventDefault();
+
+    const createdAt = currentMonthTimestamp
   
-    dispatchEvent(createEarning({ title, amount }));
+    dispatchEvent(createEarning({ title, amount, createdAt }));
 
     set_open(false);
     set_title("");

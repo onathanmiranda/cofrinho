@@ -9,11 +9,11 @@ export default class Timeline {
 
       const month = {}
             month.id        = date.getMonth()
-            month.firstDay  = new Date(year, month.id, 1).getTime()
-            month.lastDay   = new Date(year, month.id + 1, 0).getTime()
+            month.firstDay  = new Date(year, month.id, 1, 0, 0, 0, 0).getTime()
+            month.lastDay   = new Date(year, month.id + 1, 0, 23, 59, 59, 999).getTime()
             month.name      = date.toLocaleString('default', { month: 'long' })
       
-      return ({
+      return ({ 
         day,
         month,
         year,

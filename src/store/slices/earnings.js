@@ -29,7 +29,7 @@ const getEarnings = createAsyncThunk(`${name}/getEarnings`,
 
 const createEarning = createAsyncThunk(`${name}/createEarnings`,
   ( payload ) => {
-    const earning = new EarningModel(payload)
+    const earning = new EarningModel(payload);
 
     return ( 
       Cofrinho.earnings

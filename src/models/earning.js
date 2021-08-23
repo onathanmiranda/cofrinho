@@ -7,7 +7,7 @@ export default class Earning {
       id,
       createdAt
     }
-
+    
     if(!id) delete obj.id
     if(!createdAt) obj.createdAt = new Date().getTime()
     
