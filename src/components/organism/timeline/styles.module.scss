@@ -1,13 +1,16 @@
 .timeline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
   padding: 0 2.1rem;
   background: rgba(0,0,0,.8);
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: 5.5rem;
 }
 
@@ -19,4 +22,8 @@
   padding: 0 .8rem;
   height: 3.4rem;
   margin: 0;
+
+  &:active, &:focus {
+    outline: none;
+  }
 }

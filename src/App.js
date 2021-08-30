@@ -6,6 +6,7 @@ import { getUser }      from './store/slices/user'
 import { getAccounts }  from './store/slices/accounts'
 import { getEarnings }  from './store/slices/earnings'
 import { getExpenses }  from './store/slices/expenses'
+import { getLeftOvers } from './store/slices/leftovers'
 
 import Routes from './_routes'
 
@@ -23,7 +24,13 @@ function AppContainer(){
     dispatchEvent(getAccounts())
     dispatchEvent(getEarnings())
     dispatchEvent(getExpenses())
+    dispatchEvent(getLeftOvers())
   }, [ dispatchEvent, timeline ])
+
+  console.log(timeline.next)
+  console.log(timeline.current)
+  console.log(timeline.previous)
+  console.log( new Date(timeline.previous.timestamp) )
 
   return (
     <Routes />

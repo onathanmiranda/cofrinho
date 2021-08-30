@@ -87,7 +87,49 @@ class Cofrinho {
         })
 
         //create collection CRUD methods
-        //ex: db.collection.getAll()
+
+        //retrive account left overs
+        this.getLeftOvers = ( limitDateTimestamp ) => {
+          
+          const keyRange = window.IDBKeyRange.upperBound(limitDateTimestamp)
+
+          return (
+            this.database
+            .then(( database ) => (
+              database
+              .getAllFromIndex('expenses', `createdAt_index`, keyRange)
+              .then(( expenses ) => (
+                database
+                .getAllFromIndex('earnings', 'createdAt_index', keyRange)
+                .then(( earnings ) => (
+                  database
+                  .getAll('accounts')
+                  .then(( accounts ) => (
+                    accounts.map(( account ) => {
+                      const { quota, id }     = account 
+                      const totalEarned       = earnings.reduce(( acc, earning ) => earning.amount + acc, 0 )
+                      const accountTotal      = totalEarned * quota
+                      const expensesOnAccount = expenses.filter(( expense ) => id === expense.account )
+                      const totalSpent        = expensesOnAccount.reduce(( acc, expense ) => acc + expense.amount, 0 )
+                      const accountLeftOver   = accountTotal - totalSpent
+                      
+                      return ({
+                        account: account.id,
+                        amount: accountLeftOver
+                      })
+
+                    })
+                  ))
+                ))
+              ))
+            ))
+            .catch(( e ) => {
+              console.error(e)
+            })
+          )
+        }
+
+        //collections default CRUD methods
         collections.forEach(collection => {
 
             this[collection.name] = {}
@@ -158,20 +200,20 @@ class Cofrinho {
                     }
 
                     //get all items from index's value and above
-                    this[collection.name][`getAllBy${capitalizedIndex}SmallerBound`] = (value) => {
+                    this[collection.name][`getAllBy${capitalizedIndex}LowerBound`] = (value) => {
                         return this.database.then(database => {
 
-                            value = window.IDBKeyRange.smallerBound(value)
+                            value = window.IDBKeyRange.lowerBound(value)
                             
                             return database.getAllFromIndex(collection.name, `${index}_index`, value)
                         })
                     }
 
                     //get all items from index's value and below
-                    this[collection.name][`getAllBy${capitalizedIndex}BiggerBound`] = (value) => {
+                    this[collection.name][`getAllBy${capitalizedIndex}UpperBound`] = (value) => {
                         return this.database.then(database => {
 
-                            value = window.IDBKeyRange.biggerBound(value)
+                            value = window.IDBKeyRange.upperBound(value)
                             
                             return database.getAllFromIndex(collection.name, `${index}_index`, value)
                         })

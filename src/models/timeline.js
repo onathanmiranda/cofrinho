@@ -23,14 +23,13 @@ export default class Timeline {
 
     const currentDate = new Date( timestamp )
     const current = generateMonthData( currentDate )
-    
-    const currentDateMonth = currentDate.getMonth()
-    currentDate.setMonth( currentDateMonth + 1 )
-    const next = generateMonthData( currentDate )
 
-    currentDate.setMonth( currentDateMonth )
     currentDate.setDate(0)
     const previous = generateMonthData( currentDate )
+    
+    const currentDateMonth = currentDate.getMonth()
+    currentDate.setMonth( currentDateMonth + 2 )
+    const next = generateMonthData( currentDate )
 
     const returnValue = {
       current,

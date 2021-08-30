@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Mousewheel } from 'swiper/core';
+import { useSelector }            from 'react-redux'
+import { Swiper, SwiperSlide }    from 'swiper/react'
+import SwiperCore, { Mousewheel } from 'swiper/core'
 
 import formatPercentage from '../../../helpers/formatPercentage'
-import formatCurrency from '../../../helpers/formatCurrency'
+import formatCurrency   from '../../../helpers/formatCurrency'
 
 import 'swiper/swiper.scss';
 import styles from './styles.module.scss'
@@ -12,12 +12,14 @@ SwiperCore.use([ Mousewheel ]);
 
 export default function CardAccount({ id, className, style }){
 
-    const account       = useSelector(({ accounts }) => accounts.items.find(( account ) => account.id === id ))
-    const accountBudget = useSelector(({ earnings }) => earnings.totalEarned * account.quota)
-    const expenses      = useSelector(({ expenses }) => expenses.items.filter(( expense ) => expense.account === account.id ))
+    const leftOvers     = useSelector(({ leftovers }) => leftovers.items.find(({ account }) => id === account ))?.amount || 0
+    const account       = useSelector(({ accounts })  => accounts.items.find(( account ) => account.id === id ))
+    const accountBudget = useSelector(({ earnings })  => earnings.totalEarned * account.quota)
+    const expenses      = useSelector(({ expenses })  => expenses.items.filter(( expense ) => expense.account === account.id ))
     
-    const totalSpent      = expenses.reduce((accumulator, expense) => accumulator + expense.amount, 0)
-    const remainingTotal  = accountBudget - totalSpent
+    const accountAvailable = accountBudget + leftOvers
+    const totalSpent       = expenses.reduce((accumulator, expense) => accumulator + expense.amount, 0)
+    const remainingTotal   = accountAvailable - totalSpent
   
     const hasExpenses = expenses.length > 0
     
@@ -29,7 +31,7 @@ export default function CardAccount({ id, className, style }){
             </div>
             <div>
               <h3>{account.title}</h3>
-              <p>{formatCurrency( accountBudget )}</p>
+              <p>{formatCurrency( accountAvailable )}</p>
             </div>
           </header>
           <section>

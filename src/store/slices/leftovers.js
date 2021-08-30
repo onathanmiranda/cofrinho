@@ -2,16 +2,19 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import Cofrinho from '../../apis/cofrinho'
 
-const name = "accounts"
+const name = "leftovers"
 
 const initialState = {
     items: [],
     requesting: false
 }
 
-const getAccounts = createAsyncThunk(`${name}/getAccounts`, 
-  () => {
-    return Cofrinho.accounts.getAll()
+const getLeftOvers = createAsyncThunk(`${name}/getLeftOvers`, 
+  (params, thunkAPI) => {
+    
+    const timestamp = thunkAPI.getState().timeline.previous.month.lastDay
+
+    return Cofrinho.getLeftOvers(timestamp)
     .then((data) => {
       return data
     })
@@ -26,19 +29,19 @@ const slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getAccounts.fulfilled]: (state, action) => {
+    [getLeftOvers.fulfilled]: (state, action) => {
       state.requesting = false
       state.items = action.payload
     },
-    [getAccounts.pending]: (state, action) => {
+    [getLeftOvers.pending]: (state, action) => {
       state.requesting = true
     },
-    [getAccounts.rejected]: (state, action) => {
+    [getLeftOvers.rejected]: (state, action) => {
       state.requesting = false
       console.log(action.error)
     }
   }
 })
 
-export { getAccounts }
+export { getLeftOvers }
 export const { reducer } = slice
