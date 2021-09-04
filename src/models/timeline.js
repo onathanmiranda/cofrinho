@@ -21,15 +21,33 @@ export default class Timeline {
       })
     }
 
-    const currentDate = new Date( timestamp )
-    const current = generateMonthData( currentDate )
+    const currentMonthDate = new Date( timestamp );
+    const currentMonthDay  = currentMonthDate.getDate();
+    const currentMonth     = currentMonthDate.getMonth();
 
-    currentDate.setDate(0)
-    const previous = generateMonthData( currentDate )
+
+    const previousMonthDate = new Date( timestamp );
+          previousMonthDate.setDate(0);
+
+    const previousMonthDay                      = previousMonthDate.getDate();
+    const shouldPreviousAndCurrentDaysBeTheSame = previousMonthDay > currentMonthDay;
+
+    previousMonthDate.setDate( shouldPreviousAndCurrentDaysBeTheSame ? currentMonthDay : 0 );
     
-    const currentDateMonth = currentDate.getMonth()
-    currentDate.setMonth( currentDateMonth + 2 )
-    const next = generateMonthData( currentDate )
+
+    const nextMonthDate = new Date( timestamp );
+          nextMonthDate.setMonth( currentMonth + 2, 0 );
+
+    const nextMonthDay                      = nextMonthDate.getDate();
+    const shouldNextandCurrentDaysBeTheSame = nextMonthDay > currentMonthDay;
+    
+    nextMonthDate.setDate ( shouldNextandCurrentDaysBeTheSame ? currentMonthDay : 0);
+
+
+    const current   = generateMonthData(currentMonthDate);
+    const previous  = generateMonthData(previousMonthDate);
+    const next      = generateMonthData(nextMonthDate);
+
 
     const returnValue = {
       current,

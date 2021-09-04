@@ -7,7 +7,7 @@ export default class Expense {
       id,
       createdAt
     }
-    
+
     if(!id) delete obj.id
     if(!createdAt) obj.createdAt = new Date().getTime()
     

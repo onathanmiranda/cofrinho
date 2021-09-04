@@ -11,7 +11,11 @@ export default function FloatingCreateExpense(props){
   const [ open, setOpen ] = useState(false);
   const [ height, setHeight ] = useState(window.innerHeight);
 
-  const toggleOpen = () => setOpen(!open)
+  const toggleOpen = () => setOpen(!open);
+
+  function handleOnClick(){
+    setOpen(!open);
+  }
 
   const onResize = window.addEventListener('resize', () => {
     setHeight(window.innerHeight)
@@ -23,12 +27,12 @@ export default function FloatingCreateExpense(props){
     <>
       {!open && 
         <Button className={styles.floatingButton} onClick={toggleOpen}>
-          <AttachMoney style={{ fontSize: '5.5rem' }} />
+          <AttachMoney style={{ fontSize: '5.5rem', color: '#d17b0c' }} />
         </Button>
       }
       {open && 
-        <div style={{ height }} className={`fixed flex justify-center items-center bottom-0 left-0 w-full z-10 bg-black bg-opacity-75`}>
-          <FormExpenseCreate onSubmit={toggleOpen} onCancel={toggleOpen}/>
+        <div style={{ height }} className={styles.formWrapper} onClick={handleOnClick}>
+          <FormExpenseCreate onSubmit={toggleOpen} onCancel={toggleOpen} onClick={(e) => e.stopPropagation()}/>
         </div>
       }
     </>

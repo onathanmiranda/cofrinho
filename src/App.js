@@ -27,11 +27,6 @@ function AppContainer(){
     dispatchEvent(getLeftOvers())
   }, [ dispatchEvent, timeline ])
 
-  console.log(timeline.next)
-  console.log(timeline.current)
-  console.log(timeline.previous)
-  console.log( new Date(timeline.previous.timestamp) )
-
   return (
     <Routes />
   )

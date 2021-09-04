@@ -30,8 +30,10 @@ const getExpenses = createAsyncThunk(`${name}/getExpenses`,
 const createExpense = createAsyncThunk(`${name}/createExpense`, 
   (payload, thunkAPI) => {
     const { title, amount, account } = payload
+    const createdAt = thunkAPI.getState().timeline.current.timestamp
+    
     return Cofrinho.expenses.post(
-      new ExpenseModel({ title, amount, account })
+      new ExpenseModel({ title, amount, account, createdAt })
     ).then( data => {
       return data
     }).catch( e => {
@@ -64,7 +66,6 @@ const slice = createSlice({
     },
     [createExpense.fulfilled]: (state, action) => {
       state.requesting = false
-      console.log(action.payload)
     },
     [createExpense.pending]: (state, action) => {
       state.requesting = true

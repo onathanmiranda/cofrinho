@@ -104,8 +104,8 @@ class Cofrinho {
                 .then(( earnings ) => (
                   database
                   .getAll('accounts')
-                  .then(( accounts ) => (
-                    accounts.map(( account ) => {
+                  .then(( accounts ) => {
+                    const accountsLeftOvers = accounts.map(( account ) => {
                       const { quota, id }     = account 
                       const totalEarned       = earnings.reduce(( acc, earning ) => earning.amount + acc, 0 )
                       const accountTotal      = totalEarned * quota
@@ -117,9 +117,18 @@ class Cofrinho {
                         account: account.id,
                         amount: accountLeftOver
                       })
-
-                    })
-                  ))
+                    });
+                    const totalSpent = expenses.reduce(( acc, expense ) => acc + expense.amount, 0);
+                    const totalEarned = earnings.reduce(( acc, earning ) => acc + earning.amount, 0);
+                    const leftOverTotal = totalEarned - totalSpent;
+                    
+                    return ({
+                      accountsLeftOvers,
+                      leftOverTotal,
+                      totalEarned,
+                      totalSpent
+                    });
+                  })
                 ))
               ))
             ))

@@ -7,5 +7,19 @@
   padding: 0;
   border-radius: 50%;
   z-index: 10;
-  background: #118c4f;
+  background: black;
+  border: .2rem solid #d17b0c;
+}
+.formWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,.8);
+  padding: 3.4rem 2.1rem;
 }

@@ -6,6 +6,7 @@ const name = "leftovers"
 
 const initialState = {
     items: [],
+    totalLeftOver: 0,
     requesting: false
 }
 
@@ -30,15 +31,15 @@ const slice = createSlice({
   reducers: {},
   extraReducers: {
     [getLeftOvers.fulfilled]: (state, action) => {
-      state.requesting = false
-      state.items = action.payload
+      state.requesting    = false
+      state.items         = action.payload.accountsLeftOvers
+      state.totalLeftOver = action.payload.leftOverTotal
     },
     [getLeftOvers.pending]: (state, action) => {
       state.requesting = true
     },
     [getLeftOvers.rejected]: (state, action) => {
       state.requesting = false
-      console.log(action.error)
     }
   }
 })

@@ -9,16 +9,17 @@ import { createExpense, getExpenses } from '../../../store/slices/expenses'
 
 import styles from './styles.module.scss'
 
-export default function FormCreateExpense(props){
+export default function FormCreateExpense({ onSubmit, onCancel, account = null, onClick }){
   const dispatchEvent = useDispatch();
-  const accounts = useSelector(({ accounts }) => accounts.items)
-  const inputTitle = useRef();
+  const inputTitle    = useRef();
+  
+  const accounts      = useSelector(({ accounts }) => accounts.items)
 
-  const [ title, setTitle ] = useState("")
-  const [ amount, setAmount ] = useState(0)
-  const [ accountID, setAccountID ] = useState()
+  const [ title, setTitle ]         = useState("")
+  const [ amount, setAmount ]       = useState(0)
+  const [ accountID, setAccountID ] = useState(account)
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     Promise.all([
       dispatchEvent(createExpense({
@@ -29,7 +30,7 @@ export default function FormCreateExpense(props){
     ]).then(() => {
       return dispatchEvent(getExpenses())
     }).then(() => {
-      if(props.onSubmit) props.onSubmit()
+      if(onSubmit) onSubmit()
     })
   }
 
@@ -37,32 +38,25 @@ export default function FormCreateExpense(props){
     inputTitle.current.focus()
   }, [])
 
-  console.log(styles)
-
   return (
-    <form onSubmit={onSubmit} className={`${styles.form} px-13 py-21`}>
-      <label>
-        Com o que você gastou?
-        <InputText ref={inputTitle} required={true} onChange={(e) => setTitle(e.target.value)} value={title} name="title" placeholder="Ex: Aluguel" />
-      </label>
+    <form onSubmit={handleSubmit} className={`${styles.form}`} onClick={onClick}>
+      <InputText className={styles.inputTitle} ref={inputTitle} required={true} onChange={(e) => setTitle(e.target.value)} value={title} name="title" placeholder="Com o que você gastou?" />
       <InputAmount required={true} onChange={setAmount} value={amount} />
-      <div>
-        À qual conta pertence o gasto?
-        <div className={`gap-5 flex flex-wrap`}>
+        <h3 className={styles.accountSelectorText}>À qual conta pertence o gasto?</h3>
+        <div className={styles.accountsWrapper}>
           {accounts.map(( account ) => {
             const isChecked = account.id === accountID
-            const classNames = isChecked ? `bg-black text-white` : ''
+            const classNames = isChecked ? styles.checked : ''
             return(
-              <label required={true} key={account.id} className={`text-center block w-1/3 rounded border p-3 ${classNames}`}>
+              <label required={true} key={account.id} className={`${styles.radioLabel} ${classNames}`}>
                 <input className={`opacity-0 absolute`} type="radio" onChange={()=>{ setAccountID(account.id) }} name="account" value={account.id} checked={isChecked}/>
                 {account.title}
               </label>
             )
           })}
         </div>
-      </div>
-      <Button>Salvar</Button>
-      <Button type="button" onClick={props.onCancel}>Cancelar</Button>
+      <Button className={styles.submitButton} >Salvar</Button>
+      <Button className={styles.cancelButton} type="button" onClick={onCancel}>Cancelar</Button>
     </form>
   )
 }

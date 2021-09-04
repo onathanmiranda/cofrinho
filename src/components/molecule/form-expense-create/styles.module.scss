@@ -1,3 +1,43 @@
 .form {
   background-color: #1f1f1f;
+  padding: .8rem;
+  width: 100%;
+}
+.inputTitle {
+  width: 100%;
+  margin-bottom: .8rem;
+}
+.accountSelectorText {
+  color: #999;
+  margin-top: 2.1rem;
+  text-align: center;
+}
+.accountsWrapper {
+  margin-top: .8rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem;
+}
+.radioLabel {
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: .1rem solid rgba(255,255,255,.1);
+  line-height: 1;
+  text-align: center;
+  font-size: 1.3rem;
+
+  &.checked {
+    background-color: #d17b0c;
+  }
+}
+
+
+.submitButton {
+  margin-top: 2.1rem;
+}
+.cancelButton {
+  margin-top: .8rem;
+  background: rgba(255,255,255,.025);
 }
