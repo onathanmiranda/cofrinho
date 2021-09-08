@@ -34,7 +34,9 @@ export default function FormEarning(props){
   }
   
   useEffect(() => {
-    if(open) inputTitleRef.current.focus();
+    if(open) {
+      inputTitleRef.current.focus();
+    }
   }, [open]);
 
   return (

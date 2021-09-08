@@ -13,4 +13,10 @@
         background-color: #1A1A1A;
         color: #f2f2f2;
     }
+
+    @media (max-width: 375px ) {
+      html {
+        font-size: 50%
+      }
+    }
 }

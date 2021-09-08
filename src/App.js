@@ -25,6 +25,7 @@ function AppContainer(){
     dispatchEvent(getEarnings())
     dispatchEvent(getExpenses())
     dispatchEvent(getLeftOvers())
+    
   }, [ dispatchEvent, timeline ])
 
   return (
