@@ -9,11 +9,12 @@ import { createExpense, getExpenses } from '../../../store/slices/expenses'
 
 import styles from './styles.module.scss'
 
-export default function FormCreateExpense({ onSubmit, onCancel, account = null, onClick }){
+export default function FormCreateExpense({ onSubmit, onCancel, account = false, onClick }){
   const dispatchEvent = useDispatch();
   const inputTitle    = useRef();
   
-  const accounts      = useSelector(({ accounts }) => accounts.items)
+  const accounts      = useSelector(({ accounts }) => accounts.items);
+  const accountTitle  = accounts.find(({ id }) => id === account )?.title;
 
   const [ title, setTitle ]         = useState("")
   const [ amount, setAmount ]       = useState(0)
@@ -40,8 +41,12 @@ export default function FormCreateExpense({ onSubmit, onCancel, account = null, 
 
   return (
     <form onSubmit={handleSubmit} className={`${styles.form}`} onClick={onClick}>
+      {account &&
+        <h3 className={styles.accountTitle}>{`Adicione um gasto à conta de ${accountTitle}`}</h3>
+      }
       <InputText className={styles.inputTitle} ref={inputTitle} required={true} onChange={(e) => setTitle(e.target.value)} value={title} name="title" placeholder="Com o que você gastou?" />
       <InputAmount required={true} onChange={setAmount} value={amount} />
+      {!account && <>
         <h3 className={styles.accountSelectorText}>À qual conta pertence o gasto?</h3>
         <div className={styles.accountsWrapper}>
           {accounts.map(( account ) => {
@@ -55,6 +60,7 @@ export default function FormCreateExpense({ onSubmit, onCancel, account = null, 
             )
           })}
         </div>
+      </>}
       <Button className={styles.submitButton} >Salvar</Button>
       <Button className={styles.cancelButton} type="button" onClick={onCancel}>Cancelar</Button>
     </form>

@@ -14,9 +14,7 @@ $textColor: rgba(255,255,255,.7);
   margin: 0;
   letter-spacing: .1rem;
   transition: background-color .3s;
-  &:focus {
-    outline: none;
-  }
+
   &:hover {
     background-color: $bgColor_hover;
   }

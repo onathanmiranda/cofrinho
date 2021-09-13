@@ -40,8 +40,16 @@ $box-shadow: .2rem .2rem .4rem .3rem rgba(20, 20, 17, 0.3);
   letter-spacing: .05rem;
   text-align: right;
 }
+.expensesListWrapper {
+  display: flex;
+}
+.addNewExpense {
+  max-width: 8.9rem;
+  height: 5.5rem;
+}
 .expensesSwaper {
   width: 100%;
+  margin-left: .5rem;
 }
 .expense {
   max-width: 8.9rem;
