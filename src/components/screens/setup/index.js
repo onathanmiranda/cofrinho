@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Redirect, withRouter } from "react-router-dom"
 
-import FormSetup from "../../components/molecule/form-setup"
+import FormSetup from "../../molecule/form-setup"
 
 import styles from './styles.module.scss'
 

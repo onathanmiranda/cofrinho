@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { useSelector } from "react-redux"
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { EffectCoverflow, Mousewheel } from 'swiper/core';
+import SwiperCore, { Mousewheel } from 'swiper/core';
 
 import 'swiper/swiper.scss';
 import "swiper/components/effect-coverflow/effect-coverflow.min.css";
@@ -8,23 +9,35 @@ import "swiper/components/effect-coverflow/effect-coverflow.min.css";
 import CardAccount from "../../molecule/card-account"
 
 import styles from './styles.module.scss'
+import { useEffect } from "react";
 
-SwiperCore.use([ EffectCoverflow, Mousewheel ]);
+SwiperCore.use([ Mousewheel ]);
 
 export default function AccountsCarousel(){
   
   const accounts = useSelector(({ accounts }) => accounts.items );
-  
+  const [ slidesPerView, setSlidesPerView ] = useState( getSlidersPerView() );
+
+  useEffect(() => {
+    window.addEventListener('resize', function(){
+      setSlidesPerView(getSlidersPerView())
+    })
+  }, []);
+
+  function getSlidersPerView(){
+    return Math.ceil(window.innerWidth / 610);
+  }
+
   return (
     <section className={styles.section}>
       <Swiper
         spaceBetween={5}
-        slidesPerView={'auto'}
+        slidesPerView={slidesPerView}
         centeredSlides={true}
+        centerInsufficientSlides={true}
         freeMode={true}
         className={styles.swiper}
         grabCursor={true}
-        effect={'coverflow'}
         mousewheel={true} 
         freeModeSticky={true}
         freeModeMomentumRatio={0.1}

@@ -2,11 +2,33 @@
   position: fixed;
   right: .5rem;
   bottom: 8.9rem;
-  height: 8.9rem;
-  width: 8.9rem;
+  height: 5.5rem;
+  width: 5.5rem;
   padding: 0;
   border-radius: 50%;
   z-index: 10;
   background: black;
   border: .2rem solid #d17b0c;
+
+  .icon {
+    font-size: 5.5rem;
+    color: #d17b0c;
+    transition: color .3s;
+  }
+
+  &:hover {
+    background-color: #d17b0c;
+  }
+
+  &:hover .icon {
+    color: white;
+  }
+
+  @media (min-width: 1024px) {
+    right: 2.1rem;
+
+    .icon {
+      font-size: 3.4rem;
+    }
+  }
 }

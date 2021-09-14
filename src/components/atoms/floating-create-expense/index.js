@@ -17,7 +17,7 @@ export default function FloatingCreateExpense(){
   
   return (
     <Button className={styles.floatingButton} onClick={handleOnClick}>
-      <AttachMoney style={{ fontSize: '5.5rem', color: '#d17b0c' }} />
+      <AttachMoney className={styles.icon} />
     </Button>
   )
 }

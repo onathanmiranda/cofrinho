@@ -17,12 +17,12 @@ export default function AmountInput( props ){
 
   const formattedValue = formatCurrency( props.value )
 
-  const blinkClassName = focus ? styles.blink : ""
+  const focusClassName = focus ? styles.focus : ""
 
   return (
-    <div className={`${styles.inputWrapper} ${props.className || ''}`}>
+    <div className={`${styles.inputWrapper} ${props.className || ''} ${focusClassName}`}>
 
-      {formattedValue}<span className={`${styles.cursor} ${blinkClassName}`}>|</span>
+      {formattedValue}<span className={`${styles.cursor} ${focusClassName}`}>|</span>
 
       <input { ...props } 
         onFocus={() => set_focus(true)}

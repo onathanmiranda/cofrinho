@@ -1,10 +1,10 @@
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import Loading  from './screens/loading'
-import Overview from './screens/overview'
-import Setup    from './screens/setup'
-
+import Accounts from './components/screens/accounts'
+import Loading  from './components/screens/loading'
+import Overview from './components/screens/overview'
+import Setup    from './components/screens/setup'
 
 export default function Routes(props){
     
@@ -28,6 +28,11 @@ export default function Routes(props){
         <Route path="/overview" exact>
           {is_new_user  && <Redirect to="/setup" />}
           {is_old_user  && <Overview />}
+        </Route>
+
+        <Route path="/accounts/:id" exact>
+          {is_new_user && <Redirect to="/setup" />}
+          {is_old_user && <Accounts />}
         </Route>
       </Switch>
     </BrowserRouter>

@@ -1,8 +1,10 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Swiper, SwiperSlide }      from 'swiper/react'
 import SwiperCore, { Mousewheel }   from 'swiper/core'
 
 import Button from '../../atoms/button'
+
+import useAccount from '../../../hooks/useAccount';
 
 import formatPercentage from '../../../helpers/formatPercentage'
 import formatCurrency   from '../../../helpers/formatCurrency'
@@ -17,14 +19,7 @@ SwiperCore.use([ Mousewheel ]);
 export default function CardAccount({ id, className, style }){
   const dispatchEvent = useDispatch();
 
-  const leftOvers     = useSelector(({ leftovers }) => leftovers.items.find(({ account }) => id === account ))?.amount || 0
-  const account       = useSelector(({ accounts })  => accounts.items.find(( account ) => account.id === id ))
-  const accountBudget = useSelector(({ earnings })  => earnings.totalEarned * account.quota)
-  const expenses      = useSelector(({ expenses })  => expenses.items.filter(( expense ) => expense.account === account.id ))
-  
-  const accountAvailable = accountBudget + leftOvers
-  const totalSpent       = expenses.reduce((accumulator, expense) => accumulator + expense.amount, 0)
-  const remainingTotal   = accountAvailable - totalSpent;
+  const { account, expenses, accountAvailable, remainingTotal } = useAccount(id);
 
   const displayFormReduxAction = setFormCreateExpense({ show: true, accountID: account.id });
 

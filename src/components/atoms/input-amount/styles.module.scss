@@ -24,16 +24,21 @@
   border-radius: .4rem;
   padding: 0 1.3rem;
   position: relative;
+
+  &.focus {
+    box-shadow: 0 0 0 .1rem #d17b0c;
+  }
 }
 .cursor {
   opacity: 0;
-}
-.cursor.blink {
-  animation-name: blink;
-  animation-iteration-count: infinite;
-  animation-play-state: paused;
-  animation-duration: 1s;
-  animation-play-state: running;
+  
+  &.focus {
+    animation-name: blink;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+    animation-duration: 1s;
+    animation-play-state: running;
+  }
 }
 .input {
   display: block;
