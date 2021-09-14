@@ -9,9 +9,12 @@
   z-index: 10;
   background: black;
   border: .2rem solid #d17b0c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .icon {
-    font-size: 5.5rem;
+    font-size: 3.4rem;
     color: #d17b0c;
     transition: color .3s;
   }
@@ -26,9 +29,5 @@
 
   @media (min-width: 1024px) {
     right: 2.1rem;
-
-    .icon {
-      font-size: 3.4rem;
-    }
   }
 }
