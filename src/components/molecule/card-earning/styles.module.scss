@@ -2,8 +2,9 @@
   display: flex;
   align-items: center;
   font-size: 2.1rem;
-  background: rgba(255,255,255,.05);
-  padding: .8rem .8rem .8rem 2.1rem;
+  max-width: 61rem;
+  background: rgba(255,255,255,.02);
+  padding: .8rem 2.1rem;
   color: rgba(255,255,255,.8);
   font-weight: 300;
 }
@@ -13,19 +14,22 @@
   margin-left: auto;
   background: rgba(255,255,255,.05);
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .cardButton + .cardButton {
   margin-left: .8rem;
 }
 .title {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
+  color: #666;
   flex: 0 0 10ch;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .amount {
-  margin-left: 1.3rem;
   text-align: left;
   flex: 1 1 10ch;
 }

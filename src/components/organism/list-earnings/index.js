@@ -1,21 +1,27 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
-import EarningCard from '../../molecule/card-earnings'
-import FormEarning from '../../molecule/form-earning-create'
+import Button from '../../atoms/button'
+import EarningCard from '../../molecule/card-earning'
+
+import { setFormEarning } from '../../../store/slices/modal'
 
 import styles from './styles.module.scss'
 
 export default function EarningsList(){
-  
+  const dispatchEvent = useDispatch();
   const earnings = useSelector(({ earnings }) => earnings.items )
 
+  function onAdd(){
+    dispatchEvent(setFormEarning({ show: true }))
+  }
+
   return (
-    <section className={styles.section}>
-      <h2 className={styles.listTitle}>Receita</h2>
-      {earnings.map((earning) => (
+    <section className={ styles.section }>
+      <h2 className={ styles.listTitle }>Receita</h2>
+      {earnings.map(( earning ) => (
         <EarningCard className={ styles.earning } id={ earning.id } key={ earning.id } />
       ))}
-      <FormEarning className={ styles.form }/>
+      <Button className={ styles.button } onClick={ onAdd }>Adicionar</Button>
     </section>
   )
 }

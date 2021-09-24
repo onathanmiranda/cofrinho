@@ -25,10 +25,16 @@ $box-shadow: .2rem .2rem .4rem .3rem rgba(20, 20, 17, 0.3);
   margin-right: 2.1rem;
   line-height: 1;
 }
+.account {
+  text-align: right;
+}
+.title {
+  text-transform: uppercase;
+  color: #d17b0c;
+}
 .remainingTotal {
   font-size: 4rem;
   font-weight: 100;
-  letter-spacing: .1rem;
   text-align: right;
   display: block;
 }
@@ -37,7 +43,6 @@ $box-shadow: .2rem .2rem .4rem .3rem rgba(20, 20, 17, 0.3);
   text-transform: uppercase;
   margin-bottom: .8rem;
   color: rgba(255,255,255,.2);
-  letter-spacing: .05rem;
   text-align: right;
 }
 .expensesListWrapper {

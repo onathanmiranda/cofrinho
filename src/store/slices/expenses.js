@@ -43,6 +43,25 @@ const createExpense = createAsyncThunk(`${name}/createExpense`,
   }
 )
 
+const deleteExpense = createAsyncThunk(`${name}/deleteExpense`, 
+  (payload, thunkAPI) => {
+
+    const id = payload
+
+    return ( 
+      Cofrinho.expenses
+      .delete(id)
+      .then((data) => {
+        return id
+      })
+      .catch((e) => {
+        console.log(e)
+        return e
+      })
+  )
+  }
+)
+
 const getTotalSpent = (expenses) => expenses.reduce((accumulator, expense) => { 
   return accumulator + expense.amount
 }, 0)
@@ -74,9 +93,19 @@ const slice = createSlice({
       state.requesting = false
       console.log(action.error.message)
     },
+    [deleteExpense.fulfilled]: (state, action) => {
+      state.requesting = false
+    },
+    [deleteExpense.pending]: (state, action) => {
+      state.requesting = true
+    },
+    [deleteExpense.rejected]: (state, action) => {
+      state.requesting = false
+      console.log(action.error.message)
+    },
   }
 })
 
-export { getExpenses, createExpense }
+export { getExpenses, createExpense, deleteExpense }
 
 export const { reducer } = slice

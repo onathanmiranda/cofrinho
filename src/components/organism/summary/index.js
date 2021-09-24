@@ -13,12 +13,13 @@ export default function Summary(){
   const totalAvailable  = totalEarned + totalLeftOver;
   const totalLasting    = totalAvailable - totalSpent;
   
-  const negativeClassName = ( totalAvailable < 0 ) ? styles.negative : ""
+  const totalAvailableNegativeClassName = ( totalAvailable < 0 ) ? styles.negative : ""
+  const totalLastingNegativeClassName   = ( totalLasting < 0 ) ? styles.negative : ""
   
   return (
     <header className={styles.header}>
-      <data className={`${styles.totalAvailable} ${negativeClassName}`} value={totalLasting}>{formatCurrency(totalLasting)}</data>
-      <data className={styles.totalEarned} value={totalEarned}>{formatCurrency(totalAvailable)}</data>
+      <data className={`${styles.totalLasting} ${totalLastingNegativeClassName}`} value={totalLasting}>{formatCurrency(totalLasting)}</data>
+      <data className={`${styles.totalAvailable} ${totalAvailableNegativeClassName}`} value={totalAvailable}>{formatCurrency(totalAvailable)}</data>
     </header>
   )
 }

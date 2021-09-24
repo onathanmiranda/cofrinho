@@ -42,7 +42,7 @@ export default function FormCreateExpense({ onSubmit, onCancel, account = false,
   return (
     <form onSubmit={handleSubmit} className={`${styles.form}`} onClick={onClick}>
       {account &&
-        <h3 className={styles.accountTitle}>{`Adicione um gasto à conta de ${accountTitle}`}</h3>
+        <h3 className={styles.accountTitle}>{`Adicione um gasto com ${accountTitle}`}</h3>
       }
       <InputText className={styles.inputTitle} ref={inputTitle} required={true} onChange={(e) => setTitle(e.target.value)} value={title} name="title" placeholder="Com o que você gastou?" />
       <InputAmount required={true} onChange={setAmount} value={amount} />
@@ -54,7 +54,7 @@ export default function FormCreateExpense({ onSubmit, onCancel, account = false,
             const classNames = isChecked ? styles.checked : ''
             return(
               <label required={true} key={account.id} className={`${styles.radioLabel} ${classNames}`}>
-                <input className={`opacity-0 absolute`} type="radio" onChange={()=>{ setAccountID(account.id) }} name="account" value={account.id} checked={isChecked}/>
+                <input className={styles.inputRadio} type="radio" onChange={()=>{ setAccountID(account.id) }} name="account" value={account.id} checked={isChecked}/>
                 {account.title}
               </label>
             )

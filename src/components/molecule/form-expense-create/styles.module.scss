@@ -1,5 +1,5 @@
 .form {
-  background-color: #1f1f1f;
+  background-color: transparent;
   padding: .8rem;
   width: 100%;
   max-width: 40rem;
@@ -33,17 +33,26 @@
   line-height: 1;
   text-align: center;
   font-size: 1.3rem;
+  cursor: pointer;
 
-  &.checked {
+  &.checked,
+  &.checked:hover {
     background-color: #d17b0c;
+    cursor: default;
+  }
+  &:hover {
+    background: rgba(255,255,255,.05);
   }
 }
-
+.inputRadio {
+  opacity: 0;
+  position: absolute;
+}
 
 .submitButton {
   margin-top: 2.1rem;
 }
 .cancelButton {
   margin-top: .8rem;
-  background: rgba(255,255,255,.025);
+  background: #0a0a0a;
 }

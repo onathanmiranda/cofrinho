@@ -1,6 +1,6 @@
-$bgColor: rgba(255,255,255,.1);
-$bgColor_hover: rgba(255,255,255,.15);
-$textColor: rgba(255,255,255,.7);
+$bgColor: #222;
+$bgColor_hover: #333;
+$textColor: #eee;
 
 .button {
   display: block;
@@ -12,8 +12,8 @@ $textColor: rgba(255,255,255,.7);
   height: 5.5rem;
   width: 100%;
   margin: 0;
-  letter-spacing: .1rem;
   transition: background-color .3s;
+  cursor: pointer;
 
   &:hover {
     background-color: $bgColor_hover;

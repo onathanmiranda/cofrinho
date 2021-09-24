@@ -1,5 +1,5 @@
 export default class Earning {
-  constructor({ title, amount, id, createdAt }){
+  constructor({ title = "", amount = 0, id, createdAt }){
 
     let obj = {
       title,

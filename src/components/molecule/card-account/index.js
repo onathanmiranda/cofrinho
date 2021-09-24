@@ -35,8 +35,8 @@ export default function CardAccount({ id, className, style }){
         <div className={styles.quota}>
           {formatPercentage(account.quota)}
         </div>
-        <div>
-          <h3>{account.title}</h3>
+        <div className={styles.account}>
+          <h3 className={styles.title}>{account.title}</h3>
           <p>{formatCurrency( accountAvailable )}</p>
         </div>
       </header>

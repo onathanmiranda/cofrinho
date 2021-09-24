@@ -4,24 +4,41 @@
   left: 0;
   width: 100%;
   padding: 0 2.1rem;
-  background: rgba(0,0,0,.8);
-}
-
-.section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   height: 5.5rem;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  justify-content: center ;
+  align-items: center;
 }
 
 .monthButton {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
+  align-content: center;
   border-radius: .2rem;
   padding: 0 .8rem;
   height: 3.4rem;
+  width: 14.4rem;
   margin: 0;
   background-color: transparent;
   color: white;
+  flex-wrap: wrap;
+  position: relative;
+
+  .explanation {
+    width: 100%;
+    font-size: .8rem;
+    letter-spacing: .1rem;
+    color: #666;
+    margin: 0;
+    position: absolute;
+    top: -.5rem;
+    text-transform: uppercase;
+  }
+}
+.current {
+  font-size: 2.1rem;
+  width: 23.3rem;
+  text-align: center;
 }
