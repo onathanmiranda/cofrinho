@@ -91,38 +91,37 @@ const slice = createSlice({
   name,
   initialState,
   reducers: {},
-  extraReducers: {
-    [getEarnings.fulfilled]: ( state, action ) => {
+  extraReducers: (builder) => {
+    builder.addCase(getEarnings.fulfilled, ( state, action ) => {
         
       const earnings = action.payload
-
       const totalEarned = getTotalEarned(earnings)
 
       state.items = [ ...earnings ]
       state.totalEarned = totalEarned
-    },
-    [getEarnings.rejected]: ( state, action ) => {
+    })
+    builder.addCase(getEarnings.rejected, ( state, action ) => {
       console.log(action.error)
-    },
-    [createEarning.fulfilled]: ( state, action ) => {
+    })
+    builder.addCase(createEarning.fulfilled, ( state, action ) => {
       state.items.push(action.payload)
       state.totalEarned = state.totalEarned + action.payload.amount
-    },
-    [createEarning.rejected]: ( state, action ) => {
+    })
+    builder.addCase(createEarning.rejected, ( state, action ) => {
         console.log(action.error)
-    },
-    [updateEarning.fulfilled]: (state, action) => {
+    })
+    builder.addCase(updateEarning.fulfilled, (state, action) => {
       const { id } = action.payload
       state.items = [
         ...state.items.filter((item) => item.id !== id),
         action.payload
       ]
       state.totalEarned = getTotalEarned(state.items)
-    },
-    [updateEarning.rejected]: (state, action) => {
+    })
+    builder.addCase(updateEarning.rejected, (state, action) => {
       console.log(action.error)
-    },
-    [deleteEarning.fulfilled]: ( state, action ) => {
+    })
+    builder.addCase(deleteEarning.fulfilled, ( state, action ) => {
         const updatedItems = state.items.filter( earning => earning.id !== action.payload )
         
         const totalEarned = updatedItems.reduce((accumulator, earning) => { 
@@ -131,13 +130,13 @@ const slice = createSlice({
 
         state.items = [ ...updatedItems ]
         state.totalEarned = totalEarned
-    },
-    [deleteEarning.pending]: ( state, action ) => {
+    })
+    builder.addCase(deleteEarning.pending, ( state, action ) => {
         
-    },
-    [deleteEarning.rejected]: ( state, action ) => {
-        console.log( action.error )
-    },
+    })
+    builder.addCase(deleteEarning.rejected, ( state, action ) => {
+      console.log( action.error )
+    })
   }
 })
 

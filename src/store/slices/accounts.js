@@ -25,18 +25,18 @@ const slice = createSlice({
   name,
   initialState,
   reducers: {},
-  extraReducers: {
-    [getAccounts.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(getAccounts.fulfilled, (state, action) => {
       state.requesting = false
       state.items = action.payload
-    },
-    [getAccounts.pending]: (state, action) => {
+    })
+    builder.addCase(getAccounts.pending, (state) => {
       state.requesting = true
-    },
-    [getAccounts.rejected]: (state, action) => {
+    })
+    builder.addCase(getAccounts.rejected, (state, action) => {
       state.requesting = false
       console.log(action.error)
-    }
+    })
   }
 })
 

@@ -26,8 +26,10 @@ export default function ExpenseCard({ id, className }){
 
   return (
     <article className={`${styles.card} ${className || ""}`}>
-      <div className={styles.title}>{ title }</div>
-      <data value={ amount } className={styles.amount}>{ formatCurrency( amount ) }</data>
+      <div>
+        <div className={styles.title}>{ title }</div>
+        <data value={ amount } className={styles.amount}>{ formatCurrency( amount ) }</data>
+      </div>
       <Button className={styles.cardButton} type='button' onClick={ onEdit }>
         <Edit fontSize="large" />
       </Button>

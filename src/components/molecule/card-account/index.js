@@ -11,7 +11,7 @@ import formatCurrency   from '../../../helpers/formatCurrency'
 
 import { setFormCreateExpense } from '../../../store/slices/modal'
 
-import 'swiper/swiper.scss';
+import 'swiper/swiper.scss'
 import styles from './styles.module.scss'
 
 SwiperCore.use([ Mousewheel ]);

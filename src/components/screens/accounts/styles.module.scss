@@ -1,5 +1,5 @@
 .wrapper {
-  padding: 3.4rem 2.1rem;
+  padding: 3.4rem 2.1rem 8.9rem;
 }
 .backLink {
   display: block;
@@ -21,7 +21,7 @@
 }
 .summary {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: .5rem;
   max-width: 40rem;
   margin: auto;
@@ -40,7 +40,7 @@
     align-items: center;
     align-content: center;
     justify-content: center;
-    border-radius: .4rem;
+    border-radius: .8rem;
 
     data {
       display: block;
@@ -50,5 +50,33 @@
       color: rgb(242, 242, 242);
       text-align: center;
     }
+  }
+  .accountAvailable {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .leftOvers, .accountBudget {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .leftOvers {
+    border-top-right-radius: 0;
+  }
+  .accountBudget {
+    border-top-left-radius: 0;
+  }
+}
+
+.expenses {
+  margin-top: 3.4rem;
+
+  .expense {
+    margin: auto;
+  }
+
+  .expense + .expense {
+    margin-top: 1.3rem;
   }
 }

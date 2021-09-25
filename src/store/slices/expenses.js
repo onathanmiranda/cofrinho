@@ -95,13 +95,15 @@ const slice = createSlice({
     },
     [deleteExpense.fulfilled]: (state, action) => {
       state.requesting = false
+      const updatedItems = state.items.filter(({ id }) => id !== action.payload )
+      state.items = updatedItems
+      state.totalSpent = getTotalSpent(updatedItems)
     },
     [deleteExpense.pending]: (state, action) => {
       state.requesting = true
     },
     [deleteExpense.rejected]: (state, action) => {
       state.requesting = false
-      console.log(action.error.message)
     },
   }
 })
