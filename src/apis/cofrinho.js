@@ -87,7 +87,6 @@ class Cofrinho {
         })
 
         //create collection CRUD methods
-
         //retrive account left overs
         this.getLeftOvers = ( limitDateTimestamp ) => {
           
@@ -247,16 +246,50 @@ class Cofrinho {
             // ];
         })
 
-        //Set Initial Accounts
-        const accountName = "accounts"
+
+        //dump database
+        this.exportDatabase = () => {
+          return this.database.then(database => {
+            return new Promise((resolve, reject) => {
+
+              const storeNames = database.objectStoreNames
+              
+              let exportData = []
+              let exportStoreNames = []
+
+              for(const storeName of storeNames){
+                exportStoreNames.push(storeName)
+                exportData.push(database.getAll(storeName))
+              }
+
+              Promise.all(exportData).then(( data ) => {
+
+                exportData = data
+
+                const result = exportData.reduce((acc, storeData, index) => {
+                  acc.push({
+                    storeName: exportStoreNames[index],
+                    data: storeData
+                  })
+                  return acc
+                }, [])
+
+                resolve(result)
+              })
+            })
+          })
+        }
+
+        //set initial accounts if there's none
+        const collectionName = "accounts"
 
         this.database.then(database => {
-          database.getAll( accountName )
+          database.getAll( collectionName )
           .then(( data ) => {
             if( data.length ) return
             initialAccounts.forEach((accountObj) => {
               const account = new AccountModel(accountObj)
-              database.add(accountName, account)
+              database.add(collectionName, account)
             })
           })
         })

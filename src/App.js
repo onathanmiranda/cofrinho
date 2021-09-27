@@ -8,6 +8,8 @@ import { getEarnings }  from './store/slices/earnings'
 import { getExpenses }  from './store/slices/expenses'
 import { getLeftOvers } from './store/slices/leftovers'
 
+import './helpers/importExport'
+
 import Routes from './_routes'
 
 function AppContainer(){
