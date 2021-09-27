@@ -250,7 +250,7 @@ class Cofrinho {
         //dump database
         this.exportDatabase = () => {
           return this.database.then(database => {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
 
               const storeNames = database.objectStoreNames
               
@@ -263,7 +263,6 @@ class Cofrinho {
               }
 
               Promise.all(exportData).then(( data ) => {
-
                 exportData = data
 
                 const result = exportData.reduce((acc, storeData, index) => {
@@ -271,11 +270,32 @@ class Cofrinho {
                     storeName: exportStoreNames[index],
                     data: storeData
                   })
+                  
                   return acc
                 }, [])
 
-                resolve(result)
+                resolve({
+                  DBVersion: database.version,
+                  dump: result
+                })
               })
+            })
+          })
+        }
+
+        this.importDatabase = (data) => {
+          return new Promise((resolve) => {
+            this.database.then(database => {
+              let promises = []
+              data.dump.forEach(( store ) => {
+                store.data.forEach(( entry ) => {
+                  if(entry.id) delete entry.id
+                  promises.push(
+                    database.add(store.storeName, entry)
+                  )
+                })
+              })
+              Promise.all(promises).then(( result ) => resolve( result ))
             })
           })
         }
