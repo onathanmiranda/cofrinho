@@ -16,7 +16,7 @@ import styles from './styles.module.scss'
 
 SwiperCore.use([ Mousewheel ]);
 
-export default function CardAccount({ id, className, style }){
+export default function CardAccount({ id, className = "", style }){
   const dispatchEvent = useDispatch();
 
   const { account, expenses, accountAvailable, remainingTotal } = useAccount(id);
@@ -30,7 +30,7 @@ export default function CardAccount({ id, className, style }){
   }
   
   return (
-    <a style={style} className={`${styles.card} ${className || ''}`} href={`accounts/${account.id}`}>
+    <a style={style} className={`${styles.card} ${className}`} href={`accounts/${account.id}`}>
       <header className={styles.header}>
         <div className={styles.quota}>
           {formatPercentage(account.quota)}

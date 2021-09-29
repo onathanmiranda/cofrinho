@@ -2,8 +2,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import FormCreateExpense from '../../molecule/form-expense-create';
 import FormCreateEarning from '../../molecule/form-earning';
+import FormManageAccounts from '../../molecule/form-manage-accounts';
 
-import { hideFormEarning, hideFormCreateExpense } from '../../../store/slices/modal';
+import { hideFormEarning, hideFormCreateExpense, hideFormManageAccounts } from '../../../store/slices/modal';
 
 import styles from './styles.module.scss';
 
@@ -15,6 +16,7 @@ export default function Modal(){
   const { 
     formCreateExpense,
     formEarning,
+    formManageAccounts
   } = modal;
 
   const displayModal = Object.keys(modal).reduce(( acc, key ) => acc ? acc : modal[key].show, false );
@@ -26,6 +28,10 @@ export default function Modal(){
   function formEarningOnAction(){
     dispatchEvent(hideFormEarning())
   }
+
+  function formManageAccountsOnAction(){
+    dispatchEvent(hideFormManageAccounts())
+  }
   
   return (
     <>
@@ -36,6 +42,9 @@ export default function Modal(){
           }
           {formEarning.show &&
             <FormCreateEarning earningID={ formEarning.earningID } onCancel={ formEarningOnAction } onSubmit={ formEarningOnAction }/>
+          }
+          {formManageAccounts.show && 
+            <FormManageAccounts onCancel={ formManageAccountsOnAction } onSubmit={ formManageAccountsOnAction } />
           }
         </div>
       }

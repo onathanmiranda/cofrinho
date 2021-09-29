@@ -32,7 +32,7 @@ export default class Timeline {
     const previousMonthDay                      = previousMonthDate.getDate();
     const shouldPreviousAndCurrentDaysBeTheSame = previousMonthDay > currentMonthDay;
 
-    previousMonthDate.setDate( shouldPreviousAndCurrentDaysBeTheSame ? currentMonthDay : 0 );
+    if(shouldPreviousAndCurrentDaysBeTheSame) previousMonthDate.setDate( currentMonthDay );
     
 
     const nextMonthDate = new Date( timestamp );
@@ -41,8 +41,7 @@ export default class Timeline {
     const nextMonthDay                      = nextMonthDate.getDate();
     const shouldNextandCurrentDaysBeTheSame = nextMonthDay > currentMonthDay;
     
-    nextMonthDate.setDate ( shouldNextandCurrentDaysBeTheSame ? currentMonthDay : 0);
-
+    if(shouldNextandCurrentDaysBeTheSame) nextMonthDate.setDate ( currentMonthDay );
 
     const current   = generateMonthData(currentMonthDate);
     const previous  = generateMonthData(previousMonthDate);
@@ -54,7 +53,7 @@ export default class Timeline {
       next,
       previous
     }
-
+    
     return returnValue
   }
 }

@@ -39,15 +39,18 @@ export default function FormCreateExpense({ onSubmit, onCancel, account = false,
     inputTitle.current.focus()
   }, [])
 
+  const titleClassName  = account ? '' : styles.accountTitle
+
   return (
     <form onSubmit={handleSubmit} className={`${styles.form}`} onClick={onClick}>
-      {account &&
-        <h3 className={styles.formTitle}>
-          {`Adicione um gasto com`}
+      <h3 className={`${styles.formTitle} ${titleClassName}`}>
+        {`Adicione um gasto`}
+        {account && <>
+          {` com`}
           <br/>
           <span className={styles.accountTitle}>{accountTitle}</span>
-        </h3>
-      }
+        </>} 
+      </h3>
       <InputText className={styles.inputTitle} ref={inputTitle} required={true} onChange={(e) => setTitle(e.target.value)} value={title} name="title" placeholder="Com o que você gastou?" />
       <InputAmount required={true} onChange={setAmount} value={amount} />
       {!account && <>

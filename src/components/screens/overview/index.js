@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux'
 
-import FloatingCreateExpense  from '../../atoms/floating-create-expense'
-import Timeline               from '../../organism/timeline'
-import Summary                from '../../organism/summary'
-import EarningsList           from '../../organism/list-earnings'
+import ButtonAccountSettings  from '../../molecule/button-account-settings'
+import ButtonCreateExpense    from '../../molecule/button-create-expense'
 import AccountsCarousel       from '../../organism/carousel-accounts'
+import EarningsList           from '../../organism/list-earnings'
 import Modal                  from '../../organism/modal'
+import Summary                from '../../organism/summary'
+import Timeline               from '../../organism/timeline'
 
 import styles from './styles.module.scss'
 
@@ -20,7 +21,8 @@ export default function Overview(){
       <AccountsCarousel />
       <EarningsList />
       <Timeline />
-      <FloatingCreateExpense />
+      <ButtonAccountSettings />
+      <ButtonCreateExpense />
       <Modal/>
     </div>
   )

@@ -7,3 +7,16 @@ $height: 50rem;
 .slide {
   padding: 0 2.1rem;
 }
+
+.cardAccount {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform .5s, opacity .5s;
+  transition-timing-function: ease-out;
+  
+
+  &.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

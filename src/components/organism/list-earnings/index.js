@@ -17,11 +17,11 @@ export default function EarningsList(){
 
   return (
     <section className={ styles.section }>
-      <h2 className={ styles.listTitle }>Receita</h2>
+      <h2 className={ styles.listTitle }>Receitas</h2>
       {earnings.map(( earning ) => (
         <EarningCard className={ styles.earning } id={ earning.id } key={ earning.id } />
       ))}
-      <Button className={ styles.button } onClick={ onAdd }>Adicionar</Button>
+      <Button className={ styles.button } onClick={ onAdd }>Adicionar Receita</Button>
     </section>
   )
 }

@@ -1,0 +1,22 @@
+.floatingButton {
+  position: fixed;
+  left: .5rem;
+  bottom: 8.9rem;
+  height: 5.5rem;
+  width: 5.5rem;
+  padding: 0;
+  border-radius: 50%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .icon {
+    font-size: 3.4rem;
+    color: #999;
+  }
+
+  @media (min-width: 768px) {
+    left: 2.1rem;
+  }
+}

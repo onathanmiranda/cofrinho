@@ -18,7 +18,8 @@ export default function Timeline(){
 
   return (
     <nav className={styles.timeline}>
-      <Button className={styles.monthButton} onClick={previousMonthOnClick}>
+      <Button className={`${styles.monthButton} ${styles.previous}`} onClick={previousMonthOnClick}>
+        <div className={styles.explanation}>ir para</div> 
         <ArrowBackIos />
         {timeline.previous.month.name}
       </Button>
@@ -26,7 +27,8 @@ export default function Timeline(){
         <div className={styles.explanation}>você está em</div> 
         {timeline.current.month.name}
       </div>
-      <Button className={styles.monthButton} onClick={nextMonthOnClick}>
+      <Button className={`${styles.monthButton} ${styles.next}`} onClick={nextMonthOnClick}>
+        <div className={styles.explanation}>ir para</div> 
         {timeline.next.month.name}
         <ArrowForwardIos />
       </Button>

@@ -14,6 +14,9 @@ const initialState = {
   formEditExpense: {
     show: false,
     expenseID: undefined
+  },
+  formManageAccounts: {
+    show: false
   }
 }
 
@@ -27,11 +30,14 @@ const slice = createSlice({
     },
     hideFormCreateExpense: (state) => { state.formCreateExpense = initialState.formCreateExpense }, 
     setFormEarning: (state, action) => { 
-      console.log(action.payload)
       state.formEarning.show      = action.payload.show      || state.formEarning.show
       state.formEarning.earningID = action.payload.earningID || state.formEarning.earningID
     }, 
-    hideFormEarning: (state) => { state.formEarning = initialState.formEarning } 
+    hideFormEarning: (state) => { state.formEarning = initialState.formEarning },
+    setFormManageAccounts: (state, action) => { 
+      state.formManageAccounts.show = action.payload.show || state.formManageAccounts.show 
+    },
+    hideFormManageAccounts: (state) => { state.formManageAccounts = initialState.formManageAccounts }
   },
   extraReducers: {}
 })
@@ -41,6 +47,8 @@ export const {
   hideFormCreateExpense,
   setFormEarning,
   hideFormEarning,
+  setFormManageAccounts,
+  hideFormManageAccounts
 } = slice.actions
 
 export const { reducer } = slice
