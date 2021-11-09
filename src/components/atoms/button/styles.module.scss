@@ -18,4 +18,10 @@ $textColor: #eee;
   &:hover {
     background-color: $bgColor_hover;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: auto;
+  }
 }

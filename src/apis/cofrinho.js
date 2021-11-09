@@ -169,7 +169,11 @@ class Cofrinho {
 
             // update/overwrite an item
             this[collection.name].put = (value) => {
-                return this.database.then(database => database.put(collection.name, value))
+              return this.database.then(database => (
+                database.put(collection.name, value).then(id => (
+                  database.get(collection.name, id)
+                )
+              )))
             }
             
             // remove an item

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import Cofrinho from '../../apis/cofrinho'
+import Account from '../../models/account'
 
 const name = "accounts"
 
@@ -12,6 +13,19 @@ const initialState = {
 const getAccounts = createAsyncThunk(`${name}/getAccounts`, 
   () => {
     return Cofrinho.accounts.getAll()
+    .then((data) => {
+      return data
+    })
+    .catch((e) => {
+      return e
+    })
+  }
+)
+
+const updateAccount = createAsyncThunk(`${name}/updateAccount`, 
+  (payload) => {
+    const account = new Account(payload)
+    return Cofrinho.accounts.put(account)
     .then((data) => {
       return data
     })
@@ -37,8 +51,19 @@ const slice = createSlice({
       state.requesting = false
       console.log(action.error)
     })
+    builder.addCase(updateAccount.fulfilled, (state, action) => {
+      state.requesting = false
+      console.log(action.payload)
+    })
+    builder.addCase(updateAccount.pending, (state) => {
+      state.requesting = true
+    })
+    builder.addCase(updateAccount.rejected, (state, action) => {
+      state.requesting = false
+      console.log(action.error)
+    })
   }
 })
 
-export { getAccounts }
+export { getAccounts, updateAccount }
 export const { reducer } = slice

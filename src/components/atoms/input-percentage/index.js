@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Decimal from 'decimal.js'
 
 import styles from './styles.module.scss'
 
@@ -15,37 +16,42 @@ export default function PercentageInput( props ){
       setStagedValue(value)
       return
     } else {
-      console.log(value)
-      value = parseFloat( value ) / 100
-      console.log(value)
+      value = new Decimal( value )
+      value = value.dividedBy(100).toFixed(5).toString()
+      value = parseFloat( value ).toFixed(5)
       value = isNaN( value ) ? 0 : value
+      value = value > 1 ? props.value : value
       props.onChange( value )
-      setStagedValue(false)
+      setStagedValue( false )
     }
   }
 
-  const formattedValue = stagedValue ? stagedValue : (props.value * 100).toString()
-  const focusClassName = focus ? styles.focus : ""
-  const valueToCharsArray = formattedValue.toString().split('')
-  const cursorWhiteSpaces = valueToCharsArray.reduce((acc) => <>{acc}&nbsp;&nbsp;</>, '')
+  const formattedValue = stagedValue ? stagedValue : (new Decimal(props.value).times(100).toString())
 
-  console.log(formattedValue)
+  const focusClassName = focus ? styles.focus : ""
+
+  function handleFocus(){
+    set_focus(true)
+  }
+
+  function handleBlur(){
+    set_focus(false)
+  }
 
   return (
     <div className={`${styles.inputWrapper} ${props.className || ''} ${focusClassName}`}>
       {formattedValue}
-      <span className={`${styles.cursor} ${focusClassName}`}>{cursorWhiteSpaces}|</span>
+      <span className={`${styles.cursor} ${focusClassName}`}>|</span>
       %
       <input { ...props } 
-        onFocus={() => set_focus(true)}
-        onBlur={() => set_focus(false)}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         className={ `${styles.input}` } 
         value={ formattedValue } 
         onChange={onChange} 
         name={ props.name }
         type="text"
       />
-      
     </div>
   )
 }
