@@ -1,31 +1,46 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import Cofrinho  from '../../apis/cofrinho'
-import UserModel from '../../models/user'
+
+import Cofrinho from '../../apis/cofrinho';
 
 const name = "user"
 
 const initialState = {
     data: false,
-    requesting: true
+    requesting: false,
+    error: false,
+    hasRegisteredOnce: Boolean(localStorage.getItem('hasRegisteredOnce'))
 }
 
 const getUser = createAsyncThunk(`${name}/getUser`,
     (payload, thunkAPI) => {
-        return Cofrinho.user.get(1)
+        return Promise.reject('')
     }
 )
 
-const postUser = createAsyncThunk(`${name}/registerUser`,
-    (payload, thunkAPI) => {
-        const user  = new UserModel(payload)
-        return Cofrinho.user.post(user).then(( id ) => Cofrinho.user.get( id ))
-    }
+const postUser = createAsyncThunk(`${name}/postUser`,
+    (payload, thunkAPI) => (
+        Cofrinho.user.post(payload)
+        .then(({ data }) => data)
+        .catch((e) => thunkAPI.rejectWithValue(e))
+    )
+)
+
+const login = createAsyncThunk(`${name}/login`,
+    (payload, thunkAPI) => (
+        Cofrinho.user.login(payload)
+        .then(({ data }) => data)
+        .catch((e) => {console.log('onThunk', e); return thunkAPI.rejectWithValue(e)})
+    )
 )
 
 const slice = createSlice({
   name,
   initialState,
-  reducers: {},
+  reducers: {
+      cleanUpErrors: (state) => {
+          state.error = false
+      }
+  },
   extraReducers: {
         [ getUser.fulfilled ]: ( state, action ) => {
             state.requesting = false 
@@ -40,16 +55,30 @@ const slice = createSlice({
         [ postUser.fulfilled ]: ( state, action ) => {
             state.requesting = false
             state.data = action.payload
+            localStorage.setItem('hasRegisteredOnce', true);
         },
         [ postUser.pending ]: ( state, action ) => { 
             state.requesting = true 
         },
-        [ postUser.rejected ]: ( state, action ) => { 
+        [ postUser.rejected ]: ( state, action ) => {
             state.requesting = false
+            state.error = action.payload
+        },
+        [ login.fulfilled ]: ( state, action ) => {
+            state.requesting = false
+            state.data = action.payload
+            localStorage.setItem('hasRegisteredOnce', true);
+        },
+        [ login.pending ]: ( state, action ) => { 
+            state.requesting = true 
+        },
+        [ login.rejected ]: ( state, action ) => {
+            console.log('onRejected', action.payload)
+            state.requesting = false
+            state.error = action.payload
         },
   }
 })
-
-export { getUser, postUser }
-
+export { getUser, postUser, login }
+export const { cleanUpErrors } = slice.actions
 export const { reducer } = slice

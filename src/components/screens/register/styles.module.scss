@@ -1,0 +1,35 @@
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  text-align: center;
+  padding: 0 2.1rem;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.h1 {
+  margin-bottom: 2.1rem;
+
+  .appName {
+    font-size: 5.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+}
+
+.h2 {
+  margin: 0 0 2.1rem;
+  color: rgba(255,255,255,.5);
+}
+
+.p {
+  color: rgba(255,255,255,.5);
+  margin-top: 2.1rem;
+}
+.link {
+  text-decoration: underline;
+  color: #d17b0c;
+}

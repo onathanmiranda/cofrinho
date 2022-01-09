@@ -13,10 +13,12 @@ import styles from './styles.module.scss'
 export default function Overview(){
 
   const user = useSelector(({ user }) => user.data )
+
+  const { firstName, lastName } = user
   
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.welcome}>Bem-vindo, {user.name}</h1>
+      <h1 className={styles.welcome}>Bem-vindo, {firstName} {lastName}</h1>
       <Summary />
       <AccountsCarousel />
       <EarningsList />

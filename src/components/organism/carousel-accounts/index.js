@@ -44,7 +44,6 @@ export default function AccountsCarousel(){
       <Swiper
         spaceBetween={5}
         slidesPerView={slidesPerView}
-        centeredSlides={true}
         centerInsufficientSlides={true}
         freeMode={true}
         className={styles.swiper}

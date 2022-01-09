@@ -1,0 +1,18 @@
+
+.form {
+  width: 100%;
+  max-width: 37.7rem;
+}
+.input {
+  width: 100%;
+  &+ .input {
+    margin-top: .5rem;
+  }
+}
+.cta {
+  margin-top: 1.3rem;
+}
+
+.invalidInput {
+  box-shadow: 0 0 0 .1rem red;
+}

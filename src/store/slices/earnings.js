@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import Cofrinho     from '../../apis/cofrinho'
+import Cofrinho     from '../../apis/cofrinho-indexedDB'
 import EarningModel from '../../models/earning'
 
 const name = "earnings"

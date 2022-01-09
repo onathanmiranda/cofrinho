@@ -4,35 +4,42 @@ import { useSelector } from 'react-redux'
 import Accounts from './components/screens/accounts'
 import Loading  from './components/screens/loading'
 import Overview from './components/screens/overview'
-import Setup    from './components/screens/setup'
+import Register from './components/screens/register'
+import Login    from './components/screens/login'
 
-export default function Routes(props){
+export default function Routes(){
     
   const user = useSelector(({ user }) => user )
 
-  const is_loading  = user.requesting
-  const is_new_user = !is_loading && !user.data
-  const is_old_user = !is_loading && user.data
+  const { hasRegisteredOnce } = user
+  const isLoading             = user.requesting
+  const isNotUser             = !isLoading && !user.data && !hasRegisteredOnce
+  const isUnauthenticatedUser = !isLoading && !user.data && hasRegisteredOnce
+  const isAuthenticatedUser   = !isLoading && user.data
   
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          {is_loading   && <Loading />}
-          {is_new_user  && <Redirect to="/setup" />}
-          {is_old_user  && <Redirect to="/overview" />}
+          {isLoading              && <Loading />}
+          {isUnauthenticatedUser  && <Redirect to="/login" />}
+          {isNotUser              && <Redirect to="/register" />}
+          {isAuthenticatedUser    && <Redirect to="/overview" />}
         </Route>
 
-        <Route path="/setup" exact component={Setup} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/register" exact component={Register} />
         
         <Route path="/overview" exact>
-          {is_new_user  && <Redirect to="/setup" />}
-          {is_old_user  && <Overview />}
+          {isUnauthenticatedUser  && <Redirect to="/login" />}
+          {isNotUser              && <Redirect to="/register" />}
+          {isAuthenticatedUser    && <Overview />}
         </Route>
 
         <Route path="/accounts/:id" exact>
-          {is_new_user && <Redirect to="/setup" />}
-          {is_old_user && <Accounts />}
+          {isUnauthenticatedUser  && <Redirect to="/login" />}
+          {isNotUser              && <Redirect to="/register" />}
+          {isAuthenticatedUser    && <Accounts />}
         </Route>
       </Switch>
     </BrowserRouter>

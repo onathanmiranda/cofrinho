@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import Cofrinho from '../../apis/cofrinho'
+import Cofrinho from '../../apis/cofrinho-indexedDB'
 import ExpenseModel from '../../models/expense'
 
 const name = "expenses"
