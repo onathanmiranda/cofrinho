@@ -1,4 +1,4 @@
-$box-shadow: .2rem .2rem .4rem .3rem rgba(20, 20, 17, 0.3);
+$box-shadow: 0.2rem 0.2rem 0.4rem 0.3rem rgba(20, 20, 17, 0.3);
 
 .card {
   display: flex;
@@ -8,19 +8,19 @@ $box-shadow: .2rem .2rem .4rem .3rem rgba(20, 20, 17, 0.3);
   width: 100%;
   height: 25rem;
   margin: auto;
-  border-radius: .4rem;
-  padding: .8rem;
+  border-radius: 0.4rem;
+  padding: 0.8rem;
   background-color: #1f1f1f;
 }
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: rgba(255,255,255, .5);
+  color: rgba(255, 255, 255, 0.5);
 }
 .quota {
   font-size: 5.5rem;
-  color: rgba(255,255,255, .05);
+  color: rgba(255, 255, 255, 0.05);
   font-weight: 900;
   margin-right: 2.1rem;
   line-height: 1;
@@ -41,8 +41,8 @@ $box-shadow: .2rem .2rem .4rem .3rem rgba(20, 20, 17, 0.3);
 .latestExpensesTitle {
   font-size: 1.3rem;
   text-transform: uppercase;
-  margin-bottom: .8rem;
-  color: rgba(255,255,255,.2);
+  margin-bottom: 0.8rem;
+  color: rgba(255, 255, 255, 0.2);
   text-align: right;
 }
 .expensesListWrapper {
@@ -54,17 +54,17 @@ $box-shadow: .2rem .2rem .4rem .3rem rgba(20, 20, 17, 0.3);
 }
 .expensesSwaper {
   width: 100%;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 .expense {
   max-width: 8.9rem;
   height: 5.5rem;
   box-shadow: $box-shadow;
   font-size: 1.3rem;
-  background: rgba(0,0,0,.3);;
-  padding: .5rem;
-  border-radius: .4rem;
-  color: rgba(255,255,255,.7);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 .expenseTitle {
   white-space: nowrap;

@@ -1,52 +1,76 @@
-import axios from 'axios';
+import axios from "axios";
 
-class Cofrinho {
-  constructor({ host = process.env.REACT_APP_BACKEND_URL } = {}) {
-    this.host = host;
-    this.register = '/register'
-    this.login = '/login'
-    this.http = axios.create({
-      baseURL: this.host,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    this.user = {
-      post: (data) => {
-        return (
-          this.http.post(this.register, data)
-          .then(( data ) => {
-            return Promise.resolve(data)
-          })
-          .catch(( error ) => {
-            return Promise.reject({
-              message: error.response.data.message,
-              status: error.response.status
-            })
-          })
-        )
-      },
-      login: (data) => {
-        return (
-          this.http.post(this.login, data)
-          .then(( data ) => {
-            return Promise.resolve(data)
-          })
-          .catch(( error ) => {
-            console.log('onCofrinho', error.response)
-            return Promise.reject({
-              message: error.response.data.message,
-              status: error.response.status
-            })
-          })
-        )
-      }
-    }
-  }
+function Cofrinho({ host = process.env.REACT_APP_BACKEND_URL } = {}) {
+  const endpoints = {
+    register: "/register",
+    login: "/login",
+    accounts: "/accounts",
+  };
+
+  const client = axios.create({
+    baseURL: host,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const user = {
+    post: (data) => {
+      return client
+        .post(endpoints.register, data)
+        .then((data) => {
+          return Promise.resolve(data);
+        })
+        .catch((error) => {
+          return Promise.reject({
+            message: error.response.data.message,
+            status: error.response.status,
+          });
+        });
+    },
+    login: (data) => {
+      return client
+        .post(endpoints.login, data)
+        .then((data) => {
+          return Promise.resolve(data);
+        })
+        .catch((error) => {
+          return Promise.reject({
+            message: error.response.data.message,
+            status: error.response.status,
+          });
+        });
+    },
+  };
+
+  const accounts = {
+    getAll: ({ token }) => {
+      return client
+        .get(endpoints.accounts, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((data) => {
+          return Promise.resolve(data);
+        })
+        .catch((error) => {
+          return Promise.reject({
+            message: error.response.data.message,
+            status: error.response.status,
+          });
+        });
+    },
+  };
+
+  return {
+    accounts,
+    user,
+  };
 }
 
-export default new Cofrinho()
+const CofrinhoClient = Cofrinho();
 
-export {
-  Cofrinho
-}
+export default CofrinhoClient;
+
+export { Cofrinho };

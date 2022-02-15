@@ -1,16 +1,16 @@
 export default class Expense {
-  constructor({ title, amount, id, createdAt, account }){  
+  constructor({ title, amount, id, createdAt, account }) {
     let obj = {
       title,
       amount,
       account,
       id,
-      createdAt
-    }
+      createdAt,
+    };
 
-    if(!id) delete obj.id
-    if(!createdAt) obj.createdAt = new Date().getTime()
-    
-    return obj
+    if (!id) delete obj.id;
+    if (!createdAt) obj.createdAt = new Date().getTime();
+
+    return obj;
   }
 }

@@ -4,15 +4,15 @@ $textColor: #eee;
 
 .button {
   display: block;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
   background-color: $bgColor;
   color: $textColor;
-  border-radius: .4rem;
-  padding: 0 .8rem;
+  border-radius: 0.4rem;
+  padding: 0 0.8rem;
   height: 5.5rem;
   width: 100%;
   margin: 0;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   cursor: pointer;
 
   &:hover {

@@ -1,12 +1,12 @@
 .form {
   background-color: transparent;
-  padding: .8rem;
+  padding: 0.8rem;
   width: 100%;
   max-width: 40rem;
 }
 .inputTitle {
   width: 100%;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
 }
 .formTitle {
   color: #999;
@@ -26,17 +26,17 @@
   text-align: center;
 }
 .accountsWrapper {
-  margin-top: .8rem;
+  margin-top: 0.8rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 .radioLabel {
   height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: .1rem solid rgba(255,255,255,.1);
+  border: 0.1rem solid rgba(255, 255, 255, 0.1);
   line-height: 1;
   text-align: center;
   font-size: 1.3rem;
@@ -48,7 +48,7 @@
     cursor: default;
   }
   &:hover {
-    background: rgba(255,255,255,.05);
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 .inputRadio {
@@ -60,6 +60,6 @@
   margin-top: 2.1rem;
 }
 .cancelButton {
-  margin-top: .8rem;
+  margin-top: 0.8rem;
   background: #0a0a0a;
 }

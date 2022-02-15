@@ -1,29 +1,29 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import Cofrinho from '../../apis/cofrinho-indexedDB'
+import Cofrinho from "../../apis/cofrinho-indexedDB";
 
-const name = "leftovers"
+const name = "leftovers";
 
 const initialState = {
-    items: [],
-    totalLeftOver: 0,
-    requesting: false
-}
+  items: [],
+  totalLeftOver: 0,
+  requesting: false,
+};
 
-const getLeftOvers = createAsyncThunk(`${name}/getLeftOvers`, 
+const getLeftOvers = createAsyncThunk(
+  `${name}/getLeftOvers`,
   (params, thunkAPI) => {
-    
-    const timestamp = thunkAPI.getState().timeline.previous.month.lastDay
+    const timestamp = thunkAPI.getState().timeline.previous.month.lastDay;
 
     return Cofrinho.getLeftOvers(timestamp)
-    .then((data) => {
-      return data
-    })
-    .catch((e) => {
-      return e
-    })
+      .then((data) => {
+        return data;
+      })
+      .catch((e) => {
+        return e;
+      });
   }
-)
+);
 
 const slice = createSlice({
   name,
@@ -31,18 +31,18 @@ const slice = createSlice({
   reducers: {},
   extraReducers: {
     [getLeftOvers.fulfilled]: (state, action) => {
-      state.requesting    = false
-      state.items         = action.payload.accountsLeftOvers
-      state.totalLeftOver = action.payload.leftOverTotal
+      state.requesting = false;
+      state.items = action.payload.accountsLeftOvers;
+      state.totalLeftOver = action.payload.leftOverTotal;
     },
     [getLeftOvers.pending]: (state, action) => {
-      state.requesting = true
+      state.requesting = true;
     },
     [getLeftOvers.rejected]: (state, action) => {
-      state.requesting = false
-    }
-  }
-})
+      state.requesting = false;
+    },
+  },
+});
 
-export { getLeftOvers }
-export const { reducer } = slice
+export { getLeftOvers };
+export const { reducer } = slice;

@@ -1,27 +1,33 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 
-import Button from '../../atoms/button'
-import EarningCard from '../../molecule/card-earning'
+import Button from "../../atoms/button";
+import EarningCard from "../../molecule/card-earning";
 
-import { setFormEarning } from '../../../store/slices/modal'
+import { setFormEarning } from "../../../store/slices/modal";
 
-import styles from './styles.module.scss'
+import styles from "./styles.module.scss";
 
-export default function EarningsList(){
+export default function EarningsList() {
   const dispatchEvent = useDispatch();
-  const earnings = useSelector(({ earnings }) => earnings.items )
+  const earnings = useSelector(({ earnings }) => earnings.items);
 
-  function onAdd(){
-    dispatchEvent(setFormEarning({ show: true }))
+  function onAdd() {
+    dispatchEvent(setFormEarning({ show: true }));
   }
 
   return (
-    <section className={ styles.section }>
-      <h2 className={ styles.listTitle }>Receitas</h2>
-      {earnings.map(( earning ) => (
-        <EarningCard className={ styles.earning } id={ earning.id } key={ earning.id } />
+    <section className={styles.section}>
+      <h2 className={styles.listTitle}>Receitas</h2>
+      {earnings.map((earning) => (
+        <EarningCard
+          className={styles.earning}
+          id={earning.id}
+          key={earning.id}
+        />
       ))}
-      <Button className={ styles.button } onClick={ onAdd }>Adicionar Receita</Button>
+      <Button className={styles.button} onClick={onAdd}>
+        Adicionar Receita
+      </Button>
     </section>
-  )
+  );
 }

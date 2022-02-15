@@ -1,6 +1,6 @@
 .floatingButton {
   position: fixed;
-  right: .5rem;
+  right: 0.5rem;
   bottom: 8.9rem;
   height: 5.5rem;
   width: 5.5rem;
@@ -8,7 +8,7 @@
   border-radius: 50%;
   z-index: 10;
   background: #d17b0c;
-  border: .2rem solid #d17b0c;
+  border: 0.2rem solid #d17b0c;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +16,7 @@
   .icon {
     font-size: 3.4rem;
     color: #fff;
-    transition: color .3s;
+    transition: color 0.3s;
   }
 
   &:hover {

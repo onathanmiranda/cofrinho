@@ -1,10 +1,9 @@
-export default function fomatPercentage( value ){
+export default function fomatPercentage(value) {
+  var formatter = new Intl.NumberFormat("pt-BR", {
+    style: "percent",
+  });
 
-  var formatter = new Intl.NumberFormat('pt-BR', {
-      style: 'percent'
-  })
-  
-  const FormatCurrency = formatter.format
+  const FormatCurrency = formatter.format;
 
-  return FormatCurrency( value )
+  return FormatCurrency(value);
 }

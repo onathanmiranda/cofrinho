@@ -16,22 +16,22 @@
   }
 }
 .inputWrapper {
-  color: rgba(255,255,255,.8);
+  color: rgba(255, 255, 255, 0.8);
   background-color: #000;
   height: 5.5rem;
   display: flex;
   align-items: center;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
   padding: 0 1.3rem;
   position: relative;
 
   &.focus {
-    box-shadow: 0 0 0 .1rem #d17b0c;
+    box-shadow: 0 0 0 0.1rem #d17b0c;
   }
 }
 .cursor {
   opacity: 0;
-  
+
   &.focus {
     animation-name: blink;
     animation-iteration-count: infinite;

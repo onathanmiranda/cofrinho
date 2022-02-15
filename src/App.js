@@ -1,30 +1,30 @@
-import { useEffect } from 'react'
-import { Provider, useDispatch, useSelector } from 'react-redux'
+import { useEffect } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
 
-import store            from './store'
-import { getAccounts }  from './store/slices/accounts'
-import { getEarnings }  from './store/slices/earnings'
-import { getExpenses }  from './store/slices/expenses'
-import { getLeftOvers } from './store/slices/leftovers'
+import store from "./store";
+import { getAccounts } from "./store/slices/accounts";
+import { getEarnings } from "./store/slices/earnings";
+import { getExpenses } from "./store/slices/expenses";
+import { getLeftOvers } from "./store/slices/leftovers";
 
-import Routes from './_routes'
+import Routes from "./Routes";
 
-function AppContainer(){
+function AppContainer() {
+  const dispatchEvent = useDispatch();
 
-  const dispatchEvent = useDispatch()
-
-  const timeline = useSelector(({ timeline }) => timeline)
+  const timeline = useSelector(({ timeline }) => timeline);
+  const userData = useSelector(({ user }) => user.data);
 
   useEffect(() => {
-    dispatchEvent(getAccounts())
-    dispatchEvent(getEarnings())
-    dispatchEvent(getExpenses())
-    dispatchEvent(getLeftOvers())
-  }, [ dispatchEvent, timeline ])
+    if (userData) {
+      dispatchEvent(getAccounts());
+      dispatchEvent(getEarnings());
+      dispatchEvent(getExpenses());
+      dispatchEvent(getLeftOvers());
+    }
+  }, [dispatchEvent, timeline, userData]);
 
-  return (
-    <Routes />
-  )
+  return <Routes />;
 }
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
     <Provider store={store}>
       <AppContainer />
     </Provider>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,7 +1,7 @@
 export default class User {
-    constructor({ name }){   
-        return({
-            name
-        })
-    }
+  constructor({ name }) {
+    return {
+      name,
+    };
+  }
 }

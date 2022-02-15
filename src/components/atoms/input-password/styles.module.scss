@@ -1,15 +1,15 @@
 .input {
   display: block;
-  color: rgba(255,255,255,.8);
+  color: rgba(255, 255, 255, 0.8);
   background-color: #000;
   height: 5.5rem;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
   padding: 0 1.3rem;
 
   &:focus {
     outline: none;
   }
   &::placeholder {
-    color: rgba(255,255,255,.3);
+    color: rgba(255, 255, 255, 0.3);
   }
 }
